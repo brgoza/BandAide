@@ -1,1 +1,4 @@
-# band-manager
+BandAide
+Connecting musicians with musicians
+
+
