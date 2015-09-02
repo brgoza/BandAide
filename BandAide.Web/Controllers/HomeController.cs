@@ -3,20 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using BandAide.Web.Models;
 
 namespace BandAide.Web.Controllers
 {
     public class HomeController : Controller
     {
+        ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult Index()
         {
+            Utility.Seeder.FixInstrumentSkills(db);
             return View();
         }
 
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
-
             return View();
         }
 
