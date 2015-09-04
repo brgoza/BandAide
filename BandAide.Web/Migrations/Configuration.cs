@@ -46,8 +46,7 @@ namespace BandAide.Web.Migrations
             var userStore = new UserStore<ApplicationUser>(context);
             var userManager = new UserManager<ApplicationUser>(userStore);
 
-            // WTF Resharper?  foreach (var userToInsert in from line in UserData let email = line.Split(',')[2] where !context.Users.Any(u => u.UserName == email) select line.Split(',') into fields select new ApplicationUser
-
+           
             foreach (var line in UserData)
             {
                 string email = line.Split(',')[2];
@@ -65,7 +64,7 @@ namespace BandAide.Web.Migrations
                     State = fields[5],
                     Zip = fields[6],
                     PhoneNumber = "0797697898",
-                    DOB = Utility.Seeder.RandomDOB(13, 100)
+                    DOB = Utility.RandomDOB(13, 100)
                 };
                 userManager.Create(userToInsert, "Password@123");
             }
@@ -86,18 +85,18 @@ namespace BandAide.Web.Migrations
             foreach (var user in users)
             {
                 if (user.InstrumentSkills.Count > 0) continue;
-            
+
                 var x = rnd.Next(1, 4);
                 for (int i = 0; i < x; i++)
                 {
                     var prof = (Proficiency)rnd.Next(1, 6);
-                    var newSkill = new InstrumentSkill(Utility.Seeder.RandomInstrument(context), prof, "", user);
+                    var newSkill = new InstrumentSkill(Utility.RandomInstrument(context), prof, "", user);
                     user.InstrumentSkills.Add(newSkill);
-               
                 }
+
                 context.SaveChanges();
             }
-         
+
         }
 
     }

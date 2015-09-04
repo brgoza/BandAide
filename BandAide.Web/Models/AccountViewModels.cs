@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace BandAide.Web.Models
@@ -65,6 +66,19 @@ namespace BandAide.Web.Models
     public class RegisterViewModel
     {
         [Required]
+        [Display(Name = "First name:")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Last name:")]
+        public string LastName { get; set; }
+
+        [Required]
+        [DataType(DataType.DateTime)]
+        [Display(Name = "Date of Birth")]
+        public DateTime Dob { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
@@ -79,6 +93,8 @@ namespace BandAide.Web.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+     
     }
 
     public class ResetPasswordViewModel

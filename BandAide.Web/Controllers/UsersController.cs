@@ -5,8 +5,10 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
+using System.Web.Http;
 using System.Web.Mvc;
 using BandAide.Web.Models;
+using Microsoft.AspNet.Identity;
 
 namespace BandAide.Web.Controllers
 {
@@ -44,7 +46,7 @@ namespace BandAide.Web.Controllers
         // POST: ApplicationUsers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [System.Web.Mvc.HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,FirstName,LastName,DOB,Bio,StreetAddress,City,State,Zip,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
         {
@@ -59,24 +61,25 @@ namespace BandAide.Web.Controllers
         }
 
         // GET: ApplicationUsers/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult UserProfile(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ApplicationUser applicationUser = db.Users.Find(id);
-            if (applicationUser == null)
+            ApplicationUser currentUser = db.Users.Find(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            if (currentUser != db.Users.Find(id))
             {
-                return HttpNotFound();
-            }
-            return View(applicationUser);
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+            }  
+            
+            return View(currentUser);
         }
 
         // POST: ApplicationUsers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [System.Web.Mvc.HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,DOB,Bio,StreetAddress,City,State,Zip,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
         {
@@ -105,7 +108,7 @@ namespace BandAide.Web.Controllers
         }
 
         // POST: ApplicationUsers/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [System.Web.Mvc.HttpPost, System.Web.Mvc.ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
