@@ -1,5 +1,4 @@
 ﻿using System.Data.Entity;
-using System.Web.UI;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace BandAide.Web.Models
@@ -15,11 +14,10 @@ namespace BandAide.Web.Models
 
         public DbSet<InstrumentSkill> InstrumentSkillDbSet { get; set; }
         public DbSet<Instrument> InstrumentsDbSet { get; set; }
-        public DbSet<Band> BandsDbSet { get; set; }
+        public DbSet<Band> Bands { get; set; }
         public DbSet<NeedBandQuery> NeedBandQueriesDbSet { get; set; }
         public DbSet<NeedMemberQuery> NeedMemberQueriesDbSet { get; set; }
         public DbSet<Genre> GenresDbSet { get; set; }
-
 
         public static ApplicationDbContext Create()
         {
@@ -29,8 +27,22 @@ namespace BandAide.Web.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<ApplicationUser>().HasMany(u => u.MemberOfBands).WithMany(b => b.Members);
 
+            modelBuilder.Entity<ApplicationUser>().HasMany(b => b.MemberOfBands).WithMany(m => m.Members).Map(x =>
+            {
+                x.ToTable("BandMembers"); 
+                x.MapLeftKey("Bands");
+                x.MapRightKey("ApplicationUsers");
+            }
+            );
+
+            modelBuilder.Entity<ApplicationUser>().HasMany(b => b.AdminOfBands).WithMany(m => m.Admins).Map(x =>
+            {
+                x.ToTable("BandAdmins"); // third table is named Cookbooks
+                x.MapLeftKey("Bands");
+                x.MapRightKey("ApplicationUsers");
+            });
+            ;
         }
     }
 }

@@ -11,8 +11,7 @@ namespace BandAide.Web.Models
         public Guid Id { get; set; }
         public string Name { get; set; }
         public DateTime CreatedOn { get; set; }
-        public ApplicationUser Creator { get; set; }
-       
+        public virtual List<ApplicationUser> Admins { get; set; }
         public virtual List<ApplicationUser> Members { get; set; }
         public virtual List<Genre> Genres { get; set; }
 

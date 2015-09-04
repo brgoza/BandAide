@@ -4,33 +4,24 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using BandAide.Web.Models;
+using BandAide.Web.Models.ViewModels;
 using Microsoft.AspNet.Identity;
 
 namespace BandAide.Web.Controllers
 {
     public class HomeController : Controller
     {
-        ApplicationDbContext db = new ApplicationDbContext();
+        ApplicationDbContext _db = new ApplicationDbContext();
+
+        private ApplicationUser _currentUser => _db.Users.Find(HttpContext.User.Identity.GetUserId());
 
         public ActionResult Index()
         {
-            //var usr = db.Users.Find(System.Web.HttpContext.Current.User.Identity.GetUserId());
-            if (Request.IsAuthenticated) 
-            return View("About");
-            return View("Index");
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
+            if (Request.IsAuthenticated) return View("Dashboard", new DashboardViewModel(_currentUser));
             return View();
         }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
 
-            return View();
-        }
+
     }
 }

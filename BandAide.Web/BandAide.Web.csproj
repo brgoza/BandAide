@@ -177,10 +177,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AuthControllers\AccountController.cs" />
+    <Compile Include="Controllers\BandsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\AuthControllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -240,15 +242,20 @@
     <Compile Include="Migrations\201509031531386_added_image_props.Designer.cs">
       <DependentUpon>201509031531386_added_image_props.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201509040123009_allowed_for_multiple_band_admins.cs" />
+    <Compile Include="Migrations\201509040123009_allowed_for_multiple_band_admins.Designer.cs">
+      <DependentUpon>201509040123009_allowed_for_multiple_band_admins.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\Band.cs" />
+    <Compile Include="Models\ViewModels\DashboardViewModel.cs" />
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\Instrument.cs" />
     <Compile Include="Models\InstrumentSkill.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ViewModels\ManageViewModels.cs" />
     <Compile Include="Models\NeedBandQuery.cs" />
     <Compile Include="Models\NeedMemberQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -289,7 +296,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
@@ -316,9 +322,16 @@
     <Content Include="Views\Users\Details.cshtml" />
     <Content Include="Views\Users\UserProfile.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Home\Dashboard.cshtml" />
+    <Content Include="Views\Bands\Create.cshtml" />
+    <Content Include="Views\Bands\Delete.cshtml" />
+    <Content Include="Views\Bands\Details.cshtml" />
+    <Content Include="Views\Bands\Edit.cshtml" />
+    <Content Include="Views\Bands\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Admin\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -370,6 +383,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201509031531386_added_image_props.resx">
       <DependentUpon>201509031531386_added_image_props.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509040123009_allowed_for_multiple_band_admins.resx">
+      <DependentUpon>201509040123009_allowed_for_multiple_band_admins.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

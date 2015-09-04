@@ -4,6 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Drawing;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Web;
+using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -22,9 +24,12 @@ namespace BandAide.Web.Models
         public string Zip { get; set; }
 
         public virtual List<Band> MemberOfBands { get; set; }
+        public virtual List<Band> AdminOfBands { get; set; }
         public virtual List<InstrumentSkill> InstrumentSkills { get; set; }
         public virtual List<Instrument> Instruments { get; set; }
+        public virtual List<NeedBandQuery> NeedBandQueries { get; set; }
 
+            
         [NotMapped]
         public Image ProfileImage => Utility.ByteArrayToImage(ImageArray);
         [NotMapped]
