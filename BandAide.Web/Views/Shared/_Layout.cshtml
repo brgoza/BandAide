@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -25,7 +26,8 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                  @if (Request.IsAuthenticated) {
+                      <li>@Html.ActionLink("My Dashboard", "UserDashboard", "Home")</li>}
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

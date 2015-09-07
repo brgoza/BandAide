@@ -13,15 +13,33 @@ namespace BandAide.Web.Controllers
     {
         ApplicationDbContext _db = new ApplicationDbContext();
 
-        private ApplicationUser _currentUser => _db.Users.Find(HttpContext.User.Identity.GetUserId());
-
         public ActionResult Index()
         {
-            if (Request.IsAuthenticated) return View("Dashboard", new DashboardViewModel(_currentUser));
+            if (Request.IsAuthenticated) return RedirectToAction("UserDashboard", "Home");
             return View();
         }
 
+        [Authorize]
+        public ActionResult UserDashBoard()
+        {
+            UserDashboardViewModel userVM = new UserDashboardViewModel(GetCurrentUser());
+            return View(userVM);
+        }
 
+        [Authorize]
+        public ActionResult BandDashboard(Guid? bandId)
+        {
+            var band = _db.Bands.Find(bandId);
+            var currentUser = GetCurrentUser();
+            var isUserAdmin = band.Admins.Contains(currentUser);
+            BandDashboardVM bandVM = new BandDashboardVM(_db.Bands.Find(bandId), isUserAdmin);
+            return View(bandVM);
+        }
 
+        [Authorize]
+        private ApplicationUser GetCurrentUser()
+        {
+            return _db.Users.Find(HttpContext.User.Identity.GetUserId());
+        }
     }
 }

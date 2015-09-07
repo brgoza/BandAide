@@ -57,6 +57,7 @@ namespace BandAide.Web.Controllers
             band.Admins = new List<ApplicationUser> {currentUser};
             band.Members = new List<ApplicationUser> {currentUser};
             band.CreatedOn = DateTime.Now;
+            
 
             _db.Bands.Add(band);
             _db.SaveChanges();
@@ -83,15 +84,13 @@ namespace BandAide.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,CreatedOn")] Band band)
+        public ActionResult Edit(Band band)
         {
-            if (ModelState.IsValid)
-            {
-                _db.Entry(band).State = EntityState.Modified;
-                _db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(band);
+            if (!ModelState.IsValid) return View(band);
+
+            _db.Entry(band).State = EntityState.Modified;
+            _db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // GET: Bands/Delete/5

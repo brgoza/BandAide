@@ -23,13 +23,13 @@ namespace BandAide.Web.Controllers
         }
 
         // GET: ApplicationUsers/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(Guid userId)
         {
-            if (id == null)
+            if (userId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ApplicationUser applicationUser = db.Users.Find(id);
+            ApplicationUser applicationUser = db.Users.FirstOrDefault(x=>x.Id==userId.ToString());
             if (applicationUser == null)
             {
                 return HttpNotFound();
