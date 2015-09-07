@@ -108,7 +108,7 @@ namespace BandAide.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, DOB=model.Dob};
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, DOB=model.Dob,FirstName=model.FirstName,LastName=model.LastName, Bio=model.Bio};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

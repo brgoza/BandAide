@@ -4,14 +4,21 @@
     ViewBag.Title = "BandDashboard";
 }
 
-<h2>@Model.Band.Name</h2>
-<h5>Created on @Model.Band.CreatedOn.ToShortDateString()</h5>
+<h2>@Model.BandName</h2>
+<h5>Created on @Model.CreatedOn.ToShortDateString()</h5>
 
-<div>
-    <hr />
-    <dl class="dl-horizontal"></dl>
+<div class="row">
+    @foreach (var u in Model.BandMembers)
+    {
+        <div class="col-xs-3">
+            @Html.ActionLink(u.FullName, "Details", "Users", new { userId = u.Id }, null)
+        </div>
+        foreach (var s in u.InstrumentSkills)
+        {
+            <div class="text-info">@s.Instrument.Name @s.Proficiency.ToString()</div>
+        }
+    }
+    <p>
 </div>
-<p>
-
-    @Html.ActionLink("Back to User Dashboard", "Index", "Home")
+@Html.ActionLink("Back to User Dashboard", "Index", "Home")
 </p>

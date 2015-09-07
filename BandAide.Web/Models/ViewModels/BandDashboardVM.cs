@@ -8,15 +8,20 @@ namespace BandAide.Web.Models.ViewModels
 {
     public class BandDashboardVM
     {
-        [Key]
-        public Band Band { get; set; }
+     
+        public string BandName { get; set; }
+        public List<ApplicationUser> BandMembers { get; set; }
+        public List<ApplicationUser> BandAdmins { get; set; }
         public bool IsUserAdmin { get; set; }
-
+        public DateTime CreatedOn { get; set; }
         public BandDashboardVM(Band band, bool userIsAdmin = false)
         {
-            Band = band;
+            BandName = band.Name;
+            BandMembers = band.Members;
+            BandAdmins = band.Admins;
             IsUserAdmin = userIsAdmin;
         }
+     
     }
-  
+
 }

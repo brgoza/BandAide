@@ -29,7 +29,7 @@ namespace BandAide.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ApplicationUser applicationUser = db.Users.FirstOrDefault(x=>x.Id==userId.ToString());
+            ApplicationUser applicationUser = db.Users.FirstOrDefault(x => x.Id == userId.ToString());
             if (applicationUser == null)
             {
                 return HttpNotFound();
@@ -37,51 +37,18 @@ namespace BandAide.Web.Controllers
             return View(applicationUser);
         }
 
-        // GET: ApplicationUsers/Create
-        public ActionResult Create()
+       
+        [System.Web.Mvc.Authorize]
+        public ActionResult UserProfile()
         {
-            return View();
-        }
-
-        // POST: ApplicationUsers/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [System.Web.Mvc.HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,FirstName,LastName,DOB,Bio,StreetAddress,City,State,Zip,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Users.Add(applicationUser);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(applicationUser);
-        }
-
-        // GET: ApplicationUsers/Edit/5
-        public ActionResult UserProfile(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             ApplicationUser currentUser = db.Users.Find(System.Web.HttpContext.Current.User.Identity.GetUserId());
-            if (currentUser != db.Users.Find(id))
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
-            }  
-            
             return View(currentUser);
         }
 
-        // POST: ApplicationUsers/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [System.Web.Mvc.HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,DOB,Bio,StreetAddress,City,State,Zip,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
+        [System.Web.Mvc.Authorize]
+        public ActionResult UserProfile(ApplicationUser applicationUser)
         {
             if (ModelState.IsValid)
             {
