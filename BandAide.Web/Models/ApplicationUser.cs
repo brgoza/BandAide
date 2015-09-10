@@ -16,7 +16,7 @@ namespace BandAide.Web.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public byte[] ImageArray { get; set; }
-        public DateTime DOB { get; set; }
+        public DateTime? DOB { get; set; }
         public string Bio { get; set; }
         public string StreetAddress { get; set; }
         public string City { get; set; }
@@ -30,12 +30,12 @@ namespace BandAide.Web.Models
         public virtual List<NeedBandQuery> NeedBandQueries { get; set; }
 
             
-        [NotMapped]
-        public Image ProfileImage => Utility.ByteArrayToImage(ImageArray);
+        //[NotMapped]
+        //public Image ProfileImage => Utility.ByteArrayToImage(ImageArray);
         [NotMapped]
         public string FullName => FirstName + " " + LastName;
-        [NotMapped]
-        public int Age => (DateTime.Now - DOB).Days / 365;
+        //[NotMapped]
+        //public int Age => (DateTime.Now - DOB).Days / 365;
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

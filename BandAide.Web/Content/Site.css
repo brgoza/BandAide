@@ -1,4 +1,26 @@
-﻿body {
+﻿.navbar {
+    padding-top: 0px;
+    margin-top: 0px;
+    height: 150px;
+    background-color: whitesmoke;
+    background-image: url(../../Content/Banner.png);
+    background-repeat: no-repeat;
+   
+}
+.navbar-inverse .navbar-nav>li>a:hover {
+  color: #707070;
+}
+.navbar-inverse .navbar-nav>li>a {
+  color: #000;
+}
+
+.my-buttons {
+      background-color: darkseagreen;
+}
+    
+
+
+body {
     padding-top: 50px;
     padding-bottom: 20px;
 }

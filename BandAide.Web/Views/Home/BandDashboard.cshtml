@@ -5,7 +5,7 @@
 }
 
 <h2>@Model.BandName</h2>
-<h5>Created on @Model.CreatedOn.ToShortDateString()</h5>
+<h5 class="text-info">Created @Model.Age ago</h5>
 
 <div class="row">
     @foreach (var u in Model.BandMembers)
@@ -15,7 +15,7 @@
         </div>
         foreach (var s in u.InstrumentSkills)
         {
-            <div class="text-info">@s.Instrument.Name @s.Proficiency.ToString()</div>
+            <div class="text-primary">@s.Instrument.Name</div>
         }
     }
     <p>

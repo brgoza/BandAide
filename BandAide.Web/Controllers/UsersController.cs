@@ -9,6 +9,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using BandAide.Web.Models;
 using Microsoft.AspNet.Identity;
+using BandAide.Web.Models.ViewModels;
 
 namespace BandAide.Web.Controllers
 {
@@ -37,29 +38,62 @@ namespace BandAide.Web.Controllers
             return View(applicationUser);
         }
 
-       
-        [System.Web.Mvc.Authorize]
-        public ActionResult UserProfile()
+
+        public ActionResult UserProfile(Guid Id)
         {
-            ApplicationUser currentUser = db.Users.Find(System.Web.HttpContext.Current.User.Identity.GetUserId());
-            return View(currentUser);
+            if (Id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ApplicationUser user = db.Users.Find(Id.ToString());
+            if (user.Id != HttpContext.User.Identity.GetUserId())
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+            }
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
         }
 
         [System.Web.Mvc.HttpPost]
         [ValidateAntiForgeryToken]
-        [System.Web.Mvc.Authorize]
-        public ActionResult UserProfile(ApplicationUser applicationUser)
+        public ActionResult UserProfile(ApplicationUser user)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(applicationUser).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Entry(user).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index","Home");
+                }
+                return View(user);
             }
-            return View(applicationUser);
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
-        // GET: ApplicationUsers/Delete/5
+        [System.Web.Mvc.HttpGet]
+        public ActionResult ModSkills(Guid? id)
+        {
+            var user = db.Users.Find(id.ToString());
+            InstrumentSkillsViewModel vm = new InstrumentSkillsViewModel(user,user.InstrumentSkills,db);
+            return View(vm);
+        }
+        [System.Web.Mvc.HttpPost]
+        public ActionResult ModSkills(InstrumentSkillsViewModel skillsVM)
+        {
+            var user = db.Users.Find(skillsVM.UserId);
+            InstrumentSkill newSkill = new InstrumentSkill { ApplicationUser = user, Instrument = db.InstrumentsDbSet.Find(skillsVM.SelectedInstrumentId), Proficiency = skillsVM.SelectedProficiency};
+            user.InstrumentSkills.Add(newSkill);
+            db.SaveChanges();
+            return RedirectToAction("ModSkills","Users",user);
+        }
+
         public ActionResult Delete(string id)
         {
             if (id == null)
@@ -74,7 +108,6 @@ namespace BandAide.Web.Controllers
             return View(applicationUser);
         }
 
-        // POST: ApplicationUsers/Delete/5
         [System.Web.Mvc.HttpPost, System.Web.Mvc.ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)

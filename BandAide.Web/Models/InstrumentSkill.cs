@@ -18,8 +18,8 @@ namespace BandAide.Web.Models
         //constructors
         public InstrumentSkill()
         {
+            Id = Guid.NewGuid();
         }
-
         public InstrumentSkill(Instrument instrument, Proficiency proficiency, string background,
             ApplicationUser applicationUser)
         {

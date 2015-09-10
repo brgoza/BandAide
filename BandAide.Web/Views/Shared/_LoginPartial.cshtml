@@ -1,20 +1,24 @@
 ﻿@using Microsoft.AspNet.Identity
 
 @if (Request.IsAuthenticated)
-{
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
-    {
-    @Html.AntiForgeryToken()
+{  <ul class="nav nav-pills navbar-nav navbar-right">
+        <li role="presentation" class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                @User.Identity.GetUserName() <span class="caret"></span>
+            </a>
 
-    <ul class="nav navbar-nav navbar-right">
-        <li>@{ 
-            var id = User.Identity.GetUserId();
-        }
-            @Html.ActionLink("Edit Profile", "UserProfile", "Users", User.Identity.GetUserId(), htmlAttributes: new { title = "My Profile" })
-        </li>
+            <ul class="dropdown-menu">
+                <li>@Html.ActionLink("Edit Profile", "UserProfile", "Users", new { Id = User.Identity.GetUserId() }, null)</li>
+                <li>@Html.ActionLink("My Dashboard", "UserDashboard", "Home",null, null )</li>
+            </ul>
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
     </ul>
-    }
+
+    @*using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+        <ul class="nav navbar-nav navbar-right"></ul>
+    }*@
 }
 else
 {

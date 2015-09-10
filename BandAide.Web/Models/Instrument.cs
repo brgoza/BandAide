@@ -16,8 +16,7 @@ namespace BandAide.Web.Models
         }
         public Instrument(string name)
         {
-            Id = Guid.NewGuid();
-            Name = name;
+                       Name = name;
         }
     }
 }

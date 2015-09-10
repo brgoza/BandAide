@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-xs-3">
                 @Html.DisplayFor(modelItem => item.FullName) <br />
-                Age: @Html.DisplayFor(modelItem => item.Age)<br />
+                @*Age: @Html.DisplayFor(modelItem => item.Age)<br />*@
                 @foreach (var skill in item.InstrumentSkills.OrderByDescending(x => x.Proficiency))
                 {
                     <div class="label-info" style="font-size: .5em">@(skill.Instrument.Name + " : " + skill.Proficiency)</div>
