@@ -27,6 +27,13 @@ namespace BandAide.Web.Controllers
         }
 
         [Authorize]
+        public ActionResult BandSearch()
+        {
+            BandSearchViewModel bandSearchVM = new BandSearchViewModel(GetCurrentUser());
+            return View(bandSearchVM);
+        }
+
+        [Authorize]
         public ActionResult BandDashboard(Guid? bandId)
         {
             var band = _db.Bands.Find(bandId);

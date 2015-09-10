@@ -44,6 +44,7 @@ namespace BandAide.Web.Models
             });
             ;
         }
-            
+
+        public System.Data.Entity.DbSet<BandAide.Web.Models.BandSearchViewModel> BandSearchViewModels { get; set; }
     }
 }
