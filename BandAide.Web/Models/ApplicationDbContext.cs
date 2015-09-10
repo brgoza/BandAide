@@ -30,7 +30,7 @@ namespace BandAide.Web.Models
 
             modelBuilder.Entity<ApplicationUser>().HasMany(b => b.MemberOfBands).WithMany(m => m.Members).Map(x =>
             {
-                x.ToTable("BandMembers"); 
+                x.ToTable("BandMembers");
                 x.MapLeftKey("Bands");
                 x.MapRightKey("ApplicationUsers");
             }
@@ -44,7 +44,5 @@ namespace BandAide.Web.Models
             });
             ;
         }
-
-        public System.Data.Entity.DbSet<BandAide.Web.Models.BandSearchViewModel> BandSearchViewModels { get; set; }
     }
 }

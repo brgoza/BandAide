@@ -1,0 +1,35 @@
+﻿@using BandAide.Web.Models
+@model BandAide.Web.Models.ViewModels.UserDashboardViewModel
+
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+<hr />
+<h3>My Bands</h3>
+<hr />
+
+@if (@Model.MemberOfBands.Count == 0)
+{
+    <h4>
+        You're not currently in a band. Would you like to
+        @Html.ActionLink("create one", "Create", "Bands")
+        or @Html.ActionLink("look for one to join", "Create", "Bands")?
+    </h4>
+}
+<div class="container">
+    @foreach (Band b in Model.MemberOfBands)
+    {<div class="row">
+        <div class="col-xs-2">
+            <div class="text-primary">@Html.ActionLink(b.Name, "BandDashboard", "Home", new { bandId = b.Id }, null)</div>
+        </div>
+        <div class="col-xs-3">
+            @foreach (ApplicationUser u in b.Members)
+            {
+                  @Html.ActionLink(u.FullName, "Details", "Users", new { userId = u.Id }, null)
+            }
+        </div>
+    </div>
+    }
+</div>
+
