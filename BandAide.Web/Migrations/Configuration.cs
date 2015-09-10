@@ -17,8 +17,7 @@ namespace BandAide.Web.Migrations
         }
 
         #region SeedSources
-        public static List<string> UserData =
-            File.ReadAllLines(@"C:\Users\brgoz\Source\Repos\BandAide\SeedData\UserData.csv").ToList();
+
 
         public static List<string> InstrumentNames = new List<string>
         {
@@ -39,9 +38,13 @@ namespace BandAide.Web.Migrations
             SeedInstrumentSkills(context);
             context.SaveChanges();
         }
-
+        
         protected void SeedUsers(ApplicationDbContext context)
         {
+            var file = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "UserData.csv");
+            List<string> UserData = File.ReadAllLines(file).ToList();
+
+
             var userStore = new UserStore<ApplicationUser>(context);
             var userManager = new UserManager<ApplicationUser>(userStore);
 
@@ -86,12 +89,12 @@ namespace BandAide.Web.Migrations
                 var x = rnd.Next(1, 4);
                 for (var i = 0; i < x; i++)
                 {
-                    var prof = (Proficiency) rnd.Next(1, 6);
+                    var prof = (Proficiency)rnd.Next(1, 6);
                     var newSkill = new InstrumentSkill(Utility.RandomInstrument(context), prof, "", user);
                     user.InstrumentSkills.Add(newSkill);
                 }
             }
         }
-        
+
     }
 }
