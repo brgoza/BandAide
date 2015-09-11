@@ -38,7 +38,7 @@ namespace BandAide.Web.Models
 
             modelBuilder.Entity<ApplicationUser>().HasMany(b => b.AdminOfBands).WithMany(m => m.Admins).Map(x =>
             {
-                x.ToTable("BandAdmins"); // third table is named Cookbooks
+                x.ToTable("BandAdmins"); 
                 x.MapLeftKey("Bands");
                 x.MapRightKey("ApplicationUsers");
             });

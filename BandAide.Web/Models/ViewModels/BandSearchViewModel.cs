@@ -7,7 +7,6 @@ namespace BandAide.Web.Models
 {
     public class BandSearchViewModel
     {
-        public Guid Id { get; set; }
         public ApplicationUser User { get; set; }
         public InstrumentSkill PreferredInstrument { get; set; }
 
@@ -15,8 +14,7 @@ namespace BandAide.Web.Models
 
         public BandSearchViewModel(ApplicationUser user)
         {
-            Id = Guid.NewGuid();
-            User = user;
+                     User = user;
         }
     }
 }

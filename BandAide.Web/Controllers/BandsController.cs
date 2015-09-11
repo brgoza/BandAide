@@ -14,7 +14,7 @@ namespace BandAide.Web.Controllers
     public class BandsController : Controller
     {
         private ApplicationDbContext _db = new ApplicationDbContext();
-       
+
         // GET: Bands
         public ActionResult Index()
         {
@@ -51,13 +51,12 @@ namespace BandAide.Web.Controllers
         {
             if (!ModelState.IsValid) return View(band);
 
-            band.Id = Guid.NewGuid();
             var currentUserId = User.Identity.GetUserId();
             var currentUser = _db.Users.Find(currentUserId);
-            band.Admins = new List<ApplicationUser> {currentUser};
-            band.Members = new List<ApplicationUser> {currentUser};
+            band.Admins = new List<ApplicationUser> { currentUser };
+            band.Members = new List<ApplicationUser> { currentUser };
             band.CreatedOn = DateTime.Now;
-            
+
 
             _db.Bands.Add(band);
             _db.SaveChanges();

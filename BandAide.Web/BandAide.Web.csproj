@@ -190,69 +190,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201509020137451_initialMigration.cs" />
-    <Compile Include="Migrations\201509020137451_initialMigration.Designer.cs">
-      <DependentUpon>201509020137451_initialMigration.cs</DependentUpon>
+    <Compile Include="Migrations\201509101527317_Initial.cs" />
+    <Compile Include="Migrations\201509101527317_Initial.Designer.cs">
+      <DependentUpon>201509101527317_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201509020258594_added_Instrument_and_instrument_skill_models.cs" />
-    <Compile Include="Migrations\201509020258594_added_Instrument_and_instrument_skill_models.Designer.cs">
-      <DependentUpon>201509020258594_added_Instrument_and_instrument_skill_models.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201509020301468_fixed_instrument_skill_id.cs" />
-    <Compile Include="Migrations\201509020301468_fixed_instrument_skill_id.Designer.cs">
-      <DependentUpon>201509020301468_fixed_instrument_skill_id.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201509020524078_many_2_many.cs" />
-    <Compile Include="Migrations\201509020524078_many_2_many.Designer.cs">
-      <DependentUpon>201509020524078_many_2_many.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201509020530080_many_2_many_2_1_2_many.cs" />
-    <Compile Include="Migrations\201509020530080_many_2_many_2_1_2_many.Designer.cs">
-      <DependentUpon>201509020530080_many_2_many_2_1_2_many.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201509020533387_many_2_many_2_1_2_many_fix.cs" />
-    <Compile Include="Migrations\201509020533387_many_2_many_2_1_2_many_fix.Designer.cs">
-      <DependentUpon>201509020533387_many_2_many_2_1_2_many_fix.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201509020536267_added_applicationUser_owner_to_InstrumentSkill.cs" />
-    <Compile Include="Migrations\201509020536267_added_applicationUser_owner_to_InstrumentSkill.Designer.cs">
-      <DependentUpon>201509020536267_added_applicationUser_owner_to_InstrumentSkill.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201509020538245_added_applicationUser_owner_to_InstrumentSkill_fix.cs" />
-    <Compile Include="Migrations\201509020538245_added_applicationUser_owner_to_InstrumentSkill_fix.Designer.cs">
-      <DependentUpon>201509020538245_added_applicationUser_owner_to_InstrumentSkill_fix.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201509022128275_AddedBand_NeedMemberQuery_NeedBandQuery.cs" />
-    <Compile Include="Migrations\201509022128275_AddedBand_NeedMemberQuery_NeedBandQuery.Designer.cs">
-      <DependentUpon>201509022128275_AddedBand_NeedMemberQuery_NeedBandQuery.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201509022148513_band_and_applictionusers_linked.cs" />
-    <Compile Include="Migrations\201509022148513_band_and_applictionusers_linked.Designer.cs">
-      <DependentUpon>201509022148513_band_and_applictionusers_linked.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201509022235295_Added_creator_prop_to_band.cs" />
-    <Compile Include="Migrations\201509022235295_Added_creator_prop_to_band.Designer.cs">
-      <DependentUpon>201509022235295_Added_creator_prop_to_band.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201509022241223_Revert.cs" />
-    <Compile Include="Migrations\201509022241223_Revert.Designer.cs">
-      <DependentUpon>201509022241223_Revert.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201509031435133_fixed_many_to_many_with_owner.cs" />
-    <Compile Include="Migrations\201509031435133_fixed_many_to_many_with_owner.Designer.cs">
-      <DependentUpon>201509031435133_fixed_many_to_many_with_owner.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201509031531386_added_image_props.cs" />
-    <Compile Include="Migrations\201509031531386_added_image_props.Designer.cs">
-      <DependentUpon>201509031531386_added_image_props.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201509040123009_allowed_for_multiple_band_admins.cs" />
-    <Compile Include="Migrations\201509040123009_allowed_for_multiple_band_admins.Designer.cs">
-      <DependentUpon>201509040123009_allowed_for_multiple_band_admins.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201509081641529_test.cs" />
-    <Compile Include="Migrations\201509081641529_test.Designer.cs">
-      <DependentUpon>201509081641529_test.cs</DependentUpon>
+    <Compile Include="Migrations\201509101646183_made_dob_nullable.cs" />
+    <Compile Include="Migrations\201509101646183_made_dob_nullable.Designer.cs">
+      <DependentUpon>201509101646183_made_dob_nullable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ViewModels\AccountViewModels.cs" />
@@ -345,53 +289,11 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201509020137451_initialMigration.resx">
-      <DependentUpon>201509020137451_initialMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201509101527317_Initial.resx">
+      <DependentUpon>201509101527317_Initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509020258594_added_Instrument_and_instrument_skill_models.resx">
-      <DependentUpon>201509020258594_added_Instrument_and_instrument_skill_models.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509020301468_fixed_instrument_skill_id.resx">
-      <DependentUpon>201509020301468_fixed_instrument_skill_id.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509020524078_many_2_many.resx">
-      <DependentUpon>201509020524078_many_2_many.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509020530080_many_2_many_2_1_2_many.resx">
-      <DependentUpon>201509020530080_many_2_many_2_1_2_many.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509020533387_many_2_many_2_1_2_many_fix.resx">
-      <DependentUpon>201509020533387_many_2_many_2_1_2_many_fix.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509020536267_added_applicationUser_owner_to_InstrumentSkill.resx">
-      <DependentUpon>201509020536267_added_applicationUser_owner_to_InstrumentSkill.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509020538245_added_applicationUser_owner_to_InstrumentSkill_fix.resx">
-      <DependentUpon>201509020538245_added_applicationUser_owner_to_InstrumentSkill_fix.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509022128275_AddedBand_NeedMemberQuery_NeedBandQuery.resx">
-      <DependentUpon>201509022128275_AddedBand_NeedMemberQuery_NeedBandQuery.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509022148513_band_and_applictionusers_linked.resx">
-      <DependentUpon>201509022148513_band_and_applictionusers_linked.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509022235295_Added_creator_prop_to_band.resx">
-      <DependentUpon>201509022235295_Added_creator_prop_to_band.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509022241223_Revert.resx">
-      <DependentUpon>201509022241223_Revert.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509031435133_fixed_many_to_many_with_owner.resx">
-      <DependentUpon>201509031435133_fixed_many_to_many_with_owner.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509031531386_added_image_props.resx">
-      <DependentUpon>201509031531386_added_image_props.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509040123009_allowed_for_multiple_band_admins.resx">
-      <DependentUpon>201509040123009_allowed_for_multiple_band_admins.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509081641529_test.resx">
-      <DependentUpon>201509081641529_test.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201509101646183_made_dob_nullable.resx">
+      <DependentUpon>201509101646183_made_dob_nullable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

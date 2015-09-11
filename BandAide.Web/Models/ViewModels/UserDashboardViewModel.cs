@@ -11,6 +11,7 @@ namespace BandAide.Web.Models.ViewModels
     {
         public UserDashboardViewModel(ApplicationUser user)
         {
+            UserId = user.Id;
             FirstName = user.FirstName;
             LastName = user.LastName;
             Image = user.ImageArray;
@@ -18,7 +19,7 @@ namespace BandAide.Web.Models.ViewModels
             MemberOfBands = user.MemberOfBands;
             NeedBandQueries = user.NeedBandQueries;
         }
-
+        public string UserId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string FullName => FirstName + " " + LastName;
@@ -29,6 +30,6 @@ namespace BandAide.Web.Models.ViewModels
         public List<NeedBandQuery> NeedBandQueries { get; set; }
         public List<InstrumentSkill> InstrumentSkills { get; set; }
         public Instrument BestInstrument => InstrumentSkills.OrderByDescending(x => x.Proficiency).First().Instrument;
-        
+
     }
 }

@@ -1,10 +1,9 @@
 ﻿.navbar {
     padding-top: 0px;
     margin-top: 0px;
-    height: 150px;
+    height: 25px;
     background-color: whitesmoke;
-    background-image: url(../../Content/Banner.png);
-    background-repeat: no-repeat;
+   image-s
    
 }
 .navbar-inverse .navbar-nav>li>a:hover {

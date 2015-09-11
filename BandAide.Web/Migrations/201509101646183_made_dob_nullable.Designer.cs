@@ -7,13 +7,13 @@ namespace BandAide.Web.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class band_and_applictionusers_linked : IMigrationMetadata
+    public sealed partial class made_dob_nullable : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(band_and_applictionusers_linked));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(made_dob_nullable));
         
         string IMigrationMetadata.Id
         {
-            get { return "201509022148513_band_and_applictionusers_linked"; }
+            get { return "201509101646183_made_dob_nullable"; }
         }
         
         string IMigrationMetadata.Source

@@ -31,6 +31,9 @@ namespace BandAide.Web.Migrations
 
         protected override void Seed(ApplicationDbContext context)
         {
+            //if (System.Diagnostics.Debugger.IsAttached == false)
+            //    System.Diagnostics.Debugger.Launch();
+
             SeedUsers(context);
             context.SaveChanges();
             SeedInstruments(context);
@@ -41,7 +44,7 @@ namespace BandAide.Web.Migrations
         
         protected void SeedUsers(ApplicationDbContext context)
         {
-            var file = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "UserData.csv");
+            var file = @"C:\Users\brgoz\Source\Repos\BandAide\BandAide.Web\App_Data\userData.csv";
             List<string> UserData = File.ReadAllLines(file).ToList();
 
 

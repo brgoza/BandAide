@@ -3,7 +3,7 @@ namespace BandAide.Web.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class test : DbMigration
+    public partial class made_dob_nullable : DbMigration
     {
         public override void Up()
         {
