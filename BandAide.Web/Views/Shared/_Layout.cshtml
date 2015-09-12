@@ -5,34 +5,30 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
-    @Styles.Render("~/Content/css")
-    <link href="/Content/sticky-footer.css" rel="stylesheet" />
-    @Scripts.Render("~/bundles/modernizr")
 
+    <link href="/Content/sticky-footer.css" rel="stylesheet" />
 </head>
+
+
 <body style="margin-top:0px;padding-top:0px">
-    <div>
-        @*<image src="../../Content/Banner.png" )></image>*@
-         </div>
-    <div class="navbar navbar-inverse navbar">
-        <div class="container">
-            <div class="navbar-header">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </div>
-            @Html.Partial("_LoginPartial")
-        </div>
+    <div class="header-content"><img src="~/Content/Banner.png" /></div>
+    <div class="navbar navbar-inverse">
+        @Html.Partial("_LoginPartial")
     </div>
-    <div class="container body-content">
-        @RenderBody()
+
+     <div class="container body-content">
+        @RenderBody() ffff
     </div>
+  
     <footer class="navbar-fixed-bottom"
             style="background-color: lightgray; height: 50px">
-        <div class="container"><di v class="text-muted">Footer</div></div>
+        <div class="container"><di v class="text-muted">Footer</div>
     </footer>
+
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/css")
     @RenderSection("scripts", required: false)
 </body>
 </html>
