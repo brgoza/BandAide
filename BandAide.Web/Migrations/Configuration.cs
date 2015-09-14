@@ -41,16 +41,14 @@ namespace BandAide.Web.Migrations
             SeedInstrumentSkills(context);
             context.SaveChanges();
         }
-        
+
         protected void SeedUsers(ApplicationDbContext context)
         {
-            var file = @"C:\Users\Brandon\Source\Repos\BandAide\BandAide.Web\App_Data\userData.csv";
+            var file = @"C:\Users\brgoz\Source\Repos\BandAide\BandAide.Web\App_Data\userData.csv";
             List<string> UserData = File.ReadAllLines(file).ToList();
-
 
             var userStore = new UserStore<ApplicationUser>(context);
             var userManager = new UserManager<ApplicationUser>(userStore);
-
 
             foreach (var line in UserData)
             {
@@ -78,7 +76,9 @@ namespace BandAide.Web.Migrations
         {
             foreach (var i in InstrumentNames.Where(i => !context.InstrumentsDbSet.Any(x => x.Name == i)))
             {
-                context.InstrumentsDbSet.Add(new Instrument(i));
+                var instr = new Instrument();
+                instr.Name = i;
+                context.InstrumentsDbSet.Add(instr);
             }
         }
         protected void SeedInstrumentSkills(ApplicationDbContext context)

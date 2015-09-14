@@ -10,7 +10,7 @@
     <h4>
         You're not currently in a band. Would you like to
         @Html.ActionLink("create one", "Create", "Bands")
-        or <a data-toggle="modal" href="#SearchOptionsModal">look for one to join</a>?
+        or @Html.ActionLink("look for one to join?", "QueryForBand", "Users", new { userId = Model.UserId }, null)
     </h4>
 }
 else
@@ -60,14 +60,14 @@ else
                     {
                         <p>Select your preferred instrument. </p>
                         <div class="dropdown">
-                            <button id="instLabel" type="button" data-target="#"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button id="instLabel" type="button" data-target="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Select
                                 <span class="caret"></span>
                             </button>
                             <ul id="instrument-menu" class="dropdown-menu" aria-labelledby="instLabel">
                                 @foreach (var sk in Model.InstrumentSkills)
                                 {
-                                    <li class="inst-option" id=@sk.Instrument.Id data- data-dismiss="modal">@sk.Instrument.Name</li>
+                                    <li class="inst-option" id=@sk.Instrument.Id data-bind="SelectedInstrument" data-dismiss="modal">@sk.Instrument.Name</li>
                                 }
                             </ul>
                         </div>

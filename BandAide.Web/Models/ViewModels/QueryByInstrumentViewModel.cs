@@ -8,41 +8,26 @@ namespace BandAide.Web.Models.ViewModels
     public class QueryByInstrumentViewModel
     {
         public Band Band { get; set; }
-        public Guid BandId { get; set; }
-        public Instrument InstrumentToSearchFor { get; set; }
 
+        public Instrument SelectedInstrument { get; set; }
         public SelectList InstrumentSelectList { get; set; }
         public SelectListItem SelectedInstrumentSelectListItem { get; set; }
-        public Guid InstrumentId { get; set; }
+        public Guid SelectedInstrumentId { get; set; }
         public List<Instrument> AllInstruments { get; private set; }
         public List<ApplicationUser> Members => Band.Members;
         public List<ApplicationUser> SearchResults { get; set; }
 
-        public QueryByInstrumentViewModel(Band band, ApplicationDbContext context)
+        public QueryByInstrumentViewModel(Band band, List<Instrument> instruments)
         {
-            AllInstruments = context.InstrumentsDbSet.ToList();
-            InstrumentSelectList = new SelectList(AllInstruments, "Id", "Name");
+            InstrumentSelectList = new SelectList(instruments, "Id", "Name");
             Band = band;
         }
 
-        public QueryByInstrumentViewModel(Band band, Instrument instrument, ApplicationDbContext context)
+        public QueryByInstrumentViewModel(Band band, Instrument instrument)
         {
             Band = band;
-            BandId = band.Id;
-            AllInstruments = context.InstrumentsDbSet.ToList();
-            InstrumentSelectList = new SelectList(AllInstruments, "Id", "Name");
-            InstrumentToSearchFor = instrument;
-            InstrumentId = InstrumentToSearchFor.Id;
-            SearchResults = context.Users.Where(x => x.InstrumentSkills.Any(y => y.Instrument.Id == InstrumentId)).ToList();
+            SelectedInstrument = instrument;
         }
-
-        //public QueryByInstrumentViewModel(Band band, Guid instrumentId, ApplicationDbContext context)
-        //{
-        //    Band = band;
-        //    AllInstruments = context.InstrumentsDbSet.ToList();
-        //    InstrumentToSearchFor = Instrument.GetById(instrumentId, context);
-        //    SearchResults = context.Users.Where(x => x.InstrumentSkills.Any(y => y.Instrument == InstrumentToSearchFor)).ToList();
-        //}
     }
 
 }

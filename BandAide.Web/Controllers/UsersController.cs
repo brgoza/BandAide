@@ -15,12 +15,12 @@ namespace BandAide.Web.Controllers
 {
     public class UsersController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationDbContext _db = new ApplicationDbContext();
 
         // GET: ApplicationUsers
         public ActionResult Index()
         {
-            return View(db.Users.ToList());
+            return View(_db.Users.ToList());
         }
 
         // GET: ApplicationUsers/Details/5
@@ -30,7 +30,7 @@ namespace BandAide.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ApplicationUser applicationUser = db.Users.FirstOrDefault(x => x.Id == userId.ToString());
+            ApplicationUser applicationUser = _db.Users.FirstOrDefault(x => x.Id == userId.ToString());
             if (applicationUser == null)
             {
                 return HttpNotFound();
@@ -45,7 +45,7 @@ namespace BandAide.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ApplicationUser user = db.Users.Find(Id.ToString());
+            ApplicationUser user = _db.Users.Find(Id.ToString());
             if (user.Id != HttpContext.User.Identity.GetUserId())
             {
                 return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
@@ -61,70 +61,84 @@ namespace BandAide.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult UserProfile(ApplicationUser user)
         {
-            try
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
-                {
-                    db.Entry(user).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index","Home");
-                }
-                return View(user);
+                _db.Entry(user).State = EntityState.Modified;
+                _db.SaveChanges();
+                return RedirectToAction("Index", "Home");
             }
-            catch (Exception ex)
-            {
-                throw;
-            }
+            return View(user);
         }
+
+
 
         [System.Web.Mvc.HttpGet]
         public ActionResult ModSkills(Guid? id)
         {
-            var user = db.Users.Find(id.ToString());
-            InstrumentSkillsViewModel vm = new InstrumentSkillsViewModel(user,user.InstrumentSkills,db);
+            var user = _db.Users.Find(id.ToString());
+            InstrumentSkillsViewModel vm = new InstrumentSkillsViewModel(user, user.InstrumentSkills, _db);
             return View(vm);
         }
         [System.Web.Mvc.HttpPost]
         public ActionResult ModSkills(InstrumentSkillsViewModel skillsVM)
         {
-            var user = db.Users.Find(skillsVM.UserId);
-            InstrumentSkill newSkill = new InstrumentSkill { ApplicationUser = user, Instrument = db.InstrumentsDbSet.Find(skillsVM.SelectedInstrumentId), Proficiency = skillsVM.SelectedProficiency};
+            var user = _db.Users.Find(skillsVM.UserId);
+            InstrumentSkill newSkill = new InstrumentSkill { ApplicationUser = user, Instrument = _db.InstrumentsDbSet.Find(skillsVM.SelectedInstrumentId), Proficiency = skillsVM.SelectedProficiency };
             user.InstrumentSkills.Add(newSkill);
-            db.SaveChanges();
-            return RedirectToAction("ModSkills","Users",user);
+            _db.SaveChanges();
+            return RedirectToAction("ModSkills", "Users", user);
+        }
+        [System.Web.Mvc.HttpGet]
+        public ActionResult QueryForBand(string userId)
+        {
+            var user = _db.Users.Find(userId);
+            var instruments = _db.InstrumentsDbSet.ToList();
+            var vm = new NeedBandQueryViewModel(user,instruments);
+            return View(vm);
         }
 
-        public ActionResult Delete(string id)
+        [System.Web.Mvc.HttpPost]
+        public ActionResult QueryForBand(string userId, Guid selectedInstrumentId)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ApplicationUser applicationUser = db.Users.Find(id);
-            if (applicationUser == null)
-            {
-                return HttpNotFound();
-            }
-            return View(applicationUser);
+            var instrument = _db.InstrumentsDbSet.Find(selectedInstrumentId);
+            var user = _db.Users.Find(userId);
+            var vm = new NeedBandQueryViewModel(user, instrument);
+            var newQuery = new NeedBandQuery(user, instrument);
+            newQuery.Active = true;
+            var results = newQuery.ExecuteQuery(_db);
+            _db.NeedBandQueriesDbSet.Add(newQuery);
+            _db.SaveChanges();
+
+            return View("QueryResults", results);
         }
 
         [System.Web.Mvc.HttpPost, System.Web.Mvc.ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            ApplicationUser applicationUser = db.Users.Find(id);
-            db.Users.Remove(applicationUser);
-            db.SaveChanges();
+            ApplicationUser applicationUser = _db.Users.Find(id);
+            _db.Users.Remove(applicationUser);
+            _db.SaveChanges();
             return RedirectToAction("Index");
         }
+        public Band GetBandById(Guid bandId)
+        {
+            return _db.Bands.Find(bandId);
+        }
 
+        public ApplicationUser GetUserById(Guid userId)
+        {
+            return _db.Users.Find(userId);
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }
+
+
     }
 }

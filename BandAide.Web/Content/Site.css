@@ -1,31 +1,44 @@
 ﻿.navbar {
     padding-top: 0px;
     margin-top: 0px;
-    height: 25px;
-    background-color: whitesmoke;
-   image-s
-   
-}
-.navbar-inverse .navbar-nav>li>a:hover {
-  color: #707070;
-}
-.navbar-inverse .navbar-nav>li>a {
-  color: #000;
+    /*position: center;*/
+    z-index: 1;
+    text-align: center;
+    display: block;
 }
 
-.my-buttons {
-      background-color: darkseagreen;
+.header-content {
+    background: linear-gradient( to right, yellow, black );
 }
-    
+
+.nav-pills {
+    /*background-color: #ff6a00;*/
+    background: linear-gradient( to right, yellow, black );
+    /*outline-color: white;*/
+}
+
+.dropdown-menu {
+    cursor: pointer;
+}
+
+.modal-content {
+    color: black;
+}
+
+.dropdown-toggle {
+    background-color: white;
+}
 
 
 body {
-    padding-top: 50px;
+    background-color
+    padding-top: 0px;
     padding-bottom: 20px;
 }
-
 /* Set padding to keep content from hitting the edges */
-.body-content {
+.body-content { 
+    background:black;
+    color: white;
     padding-left: 15px;
     padding-right: 15px;
 }

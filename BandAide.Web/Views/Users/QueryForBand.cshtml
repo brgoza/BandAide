@@ -1,4 +1,5 @@
-﻿@model BandAide.Web.Models.ViewModels.QueryByInstrumentViewModel
+﻿@model BandAide.Web.Models.ViewModels.NeedBandQueryViewModel
+
 
 @{
     ViewBag.Title = "Search by instrument";
@@ -13,7 +14,7 @@
         <div class="form-group">
             @Html.DropDownListFor(model => model.SelectedInstrumentId, Model.InstrumentSelectList)
             <div class="col-md-10">
-                @Html.HiddenFor(model => model.Band.Id)
+                @Html.HiddenFor(model => model.User.Id)
             </div>
         </div>
 

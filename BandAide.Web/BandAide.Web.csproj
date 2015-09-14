@@ -184,6 +184,14 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AuthControllers\AccountController.cs" />
     <Compile Include="Controllers\BandsController.cs" />
+    <Compile Include="Migrations\201509141623492_modified_needMemberQueryModel.cs" />
+    <Compile Include="Migrations\201509141623492_modified_needMemberQueryModel.Designer.cs">
+      <DependentUpon>201509141623492_modified_needMemberQueryModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201509141647498_modified_needBandQueryModel.cs" />
+    <Compile Include="Migrations\201509141647498_modified_needBandQueryModel.Designer.cs">
+      <DependentUpon>201509141647498_modified_needBandQueryModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\ViewModels\QueryByInstrumentViewModel.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -207,7 +215,6 @@
     <Compile Include="Models\ViewModels\BandDashboardVM.cs" />
     <Compile Include="Models\ViewModels\NeedBandQueryViewModel.cs" />
     <Compile Include="Models\ViewModels\InstrumentSkillsViewModel.cs" />
-    <Compile Include="Models\ViewModels\QueryResults.cs" />
     <Compile Include="Models\ViewModels\UserDashboardViewModel.cs" />
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -281,6 +288,8 @@
     <Content Include="Views\Bands\AddMember.cshtml" />
     <Content Include="Views\Bands\QueryByInstrument.cshtml" />
     <Content Include="Views\Bands\QueryResults.cshtml" />
+    <Content Include="Views\Users\QueryForBand.cshtml" />
+    <Content Include="Views\Users\QueryResults.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Admin\" />
@@ -299,6 +308,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201509101646183_made_dob_nullable.resx">
       <DependentUpon>201509101646183_made_dob_nullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509141623492_modified_needMemberQueryModel.resx">
+      <DependentUpon>201509141623492_modified_needMemberQueryModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509141647498_modified_needBandQueryModel.resx">
+      <DependentUpon>201509141647498_modified_needBandQueryModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

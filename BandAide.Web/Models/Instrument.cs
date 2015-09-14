@@ -16,14 +16,12 @@ namespace BandAide.Web.Models
         {
 
         }
+
         public Instrument(string name)
         {
             Name = name;
         }
 
-        public static Instrument GetById(Guid id,ApplicationDbContext context)
-        {
-            return context.InstrumentsDbSet.Find(id);
-        }
+
     }
 }

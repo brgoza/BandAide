@@ -31,5 +31,7 @@ namespace BandAide.Web.Models.ViewModels
         public List<InstrumentSkill> InstrumentSkills { get; set; }
         public Instrument BestInstrument => InstrumentSkills.OrderByDescending(x => x.Proficiency).First().Instrument;
 
+        public Instrument SelectedInstrument { get; set; }
+
     }
 }

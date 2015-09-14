@@ -16,7 +16,6 @@ namespace BandAide.Web.Models.ViewModels
         public bool IsUserAdmin { get; set; }
         public DateTime CreatedOn { get; set; }
         public string Age => Humanizer.TimeSpanHumanizeExtensions.Humanize(DateTime.Now - CreatedOn);
-
         public string NameOfUserToInvite { get; set; }
         public ApplicationUser UserToInvite { get; set; }
 
@@ -32,7 +31,7 @@ namespace BandAide.Web.Models.ViewModels
             BandMembers = band.Members;
             BandAdmins = band.Admins;
             IsUserAdmin = userIsAdmin;
-            NeedMemberQueries = band.MemberQueries;
+            NeedMemberQueries = band.NeedMemberQueries;
         }
      
     }
