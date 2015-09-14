@@ -44,7 +44,7 @@ namespace BandAide.Web.Migrations
         
         protected void SeedUsers(ApplicationDbContext context)
         {
-            var file = @"C:\Users\brgoz\Source\Repos\BandAide\BandAide.Web\App_Data\userData.csv";
+            var file = @"C:\Users\Brandon\Source\Repos\BandAide\BandAide.Web\App_Data\userData.csv";
             List<string> UserData = File.ReadAllLines(file).ToList();
 
 

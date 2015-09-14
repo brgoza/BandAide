@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BandAide.Web.Models;
+using BandAide.Web.Models.ViewModels;
 using Microsoft.AspNet.Identity;
 
 namespace BandAide.Web.Controllers
@@ -21,103 +22,76 @@ namespace BandAide.Web.Controllers
             return View(_db.Bands.ToList());
         }
 
-        // GET: Bands/Details/5
-        public ActionResult Details(Guid? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Band band = _db.Bands.Find(id);
-            if (band == null)
-            {
-                return HttpNotFound();
-            }
-            return View(band);
-        }
 
-        // GET: Bands/Create
+        [HttpGet]
+        [Authorize]
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Bands/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Band band)
         {
             if (!ModelState.IsValid) return View(band);
 
-            var currentUserId = User.Identity.GetUserId();
-            var currentUser = _db.Users.Find(currentUserId);
+            var currentUser = _db.Users.Find(User.Identity.GetUserId());
             band.Admins = new List<ApplicationUser> { currentUser };
             band.Members = new List<ApplicationUser> { currentUser };
             band.CreatedOn = DateTime.Now;
 
-
             _db.Bands.Add(band);
             _db.SaveChanges();
-            return RedirectToAction("Index");
+
+            return RedirectToAction("BandDashBoard", "Home", new { bandId = band.Id });
         }
 
-        // GET: Bands/Edit/5
-        public ActionResult Edit(Guid? id)
+        [HttpGet]
+        public ActionResult AddMember(Guid bandId)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Band band = _db.Bands.Find(id);
-            if (band == null)
-            {
-                return HttpNotFound();
-            }
-            return View(band);
+            var band = GetBandById(bandId);
+            var vm = new AddMemberViewModel { Band = band };
+            return View(vm);
         }
 
-        // POST: Bands/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(Band band)
+        public ActionResult AddMember(Guid bandId, string NameOfUserToInvite)
         {
-            if (!ModelState.IsValid) return View(band);
-
-            _db.Entry(band).State = EntityState.Modified;
-            _db.SaveChanges();
-            return RedirectToAction("Index");
+            ApplicationUser invitee = _db.Users.FirstOrDefault(x => x.UserName == NameOfUserToInvite);
+            GetBandById(bandId).AddMember(invitee, _db);
+            return RedirectToAction("BandDashBoard", "Home", new { bandId = bandId });
         }
 
-        // GET: Bands/Delete/5
-        public ActionResult Delete(Guid? id)
+        [HttpGet]
+        public ActionResult QueryByInstrument(Guid bandId)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Band band = _db.Bands.Find(id);
-            if (band == null)
-            {
-                return HttpNotFound();
-            }
-            return View(band);
+            var band = GetBandById(bandId);
+            var vm = new QueryByInstrumentViewModel(band, _db);
+            return View(vm);
         }
 
-        // POST: Bands/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(Guid id)
+        [HttpPost]
+        public ActionResult QueryByInstrument(Guid bandId, Guid instrumentId)
         {
-            Band band = _db.Bands.Find(id);
-            _db.Bands.Remove(band);
-            _db.SaveChanges();
-            return RedirectToAction("Index");
+            var results = new QueryByInstrumentViewModel(GetBandById(bandId), Instrument.GetById(instrumentId, _db),_db);
+            
+            return View("QueryResults",results);
         }
 
+        public ActionResult QueryResults(List<NeedMemberQuery> results)
+        {
+            return View(results);
+        }
+        public Band GetBandById(Guid bandId)
+        {
+            return _db.Bands.Find(bandId);
+        }
+
+        public ApplicationUser GetUserById(Guid userId)
+        {
+            return _db.Users.Find(userId);
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

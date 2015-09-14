@@ -1,13 +1,9 @@
-﻿@using BandAide.Web.Models
-@model BandAide.Web.Models.ViewModels.UserDashboardViewModel
+﻿@model BandAide.Web.Models.ViewModels.UserDashboardViewModel
 
 @{
     ViewBag.Title = "Dashboard";
 }
 
-<hr />
-<h3>My Bands</h3>
-<hr />
 
 @if (@Model.MemberOfBands.Count == 0)
 {
@@ -16,76 +12,86 @@
         @Html.ActionLink("create one", "Create", "Bands")
         or <a data-toggle="modal" href="#SearchOptionsModal">look for one to join</a>?
     </h4>
-
-
-    <!-- Modal -->
-    <input type="hidden" id="instrument-result" />
-
-
-    <div id="SearchOptionsModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Band Search Options</h4>
+}
+else
+{
+    <div class="row">
+        <div class="col-xs-3">Band</div>
+    </div>
+    <div class="container">
+        @foreach (var b in Model.MemberOfBands)
+        {
+            <div class="row">
+                <div class="col-xs-2">
+                    <div class="text-primary">@Html.ActionLink(b.Name, "BandDashboard", "Home", new { bandId = b.Id }, null)</div>
                 </div>
-                <div class="modal-body">
-                    @{
-                        if (Model.InstrumentSkills.Count == 0)
-                        { <p>You haven't told us about any of your skills.. </p>
-                            var link = @"\users\userprofile?id=" + Model.UserId.ToString();
-                            <p>You can do so through the <a href=@link>User Profile page.</a></p>
-                        }
-                        else
-                        {<p>Select your preferred instrument. </p>
+                <div class="col-xs-3">
+                    @foreach (var u in b.Members)
+                    {
+                        @Html.ActionLink(u.FullName, "Details", "Users", new { userId = u.Id }, null)
+                    }
+                </div>
+            </div>
+        }
+    </div>
+
+}
+
+<input type="hidden" id="instrument-result" />
+<div id="SearchOptionsModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Band Search Options</h4>
+            </div>
+            <div class="modal-body">
+                @{//If user hasn't set up any instrument skills, push them towards the page to do so
+                    if (Model.InstrumentSkills.Count == 0)
+                    {
+                        <p>You haven't told us about any of your skills.. </p>
+                        var link = @"\users\userprofile?id=" + Model.UserId;
+                        <p>
+                            You can do so through the <a href=@link>User Profile page.</a>
+                        </p>
+                    }
+                    //Otherwise, show their instrument skills and ask them to make a choice
+                    else
+                    {
+                        <p>Select your preferred instrument. </p>
                         <div class="dropdown">
-                            <button id="instLabel" type="button" data-target="#" href="http://example.com" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button id="instLabel" type="button" data-target="#"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Select
                                 <span class="caret"></span>
                             </button>
                             <ul id="instrument-menu" class="dropdown-menu" aria-labelledby="instLabel">
-                                @foreach (InstrumentSkill sk in Model.InstrumentSkills)
+                                @foreach (var sk in Model.InstrumentSkills)
                                 {
-                                    <li class="inst-option" id=@sk.Instrument.Id data-dismiss="modal">@sk.Instrument.Name</li>
+                                    <li class="inst-option" id=@sk.Instrument.Id data- data-dismiss="modal">@sk.Instrument.Name</li>
                                 }
                             </ul>
                         </div>
-                        }
                     }
-                </div>
-                @*<div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>*@
+                }
             </div>
         </div>
     </div>
-                        }
-<div class="container">
-    @foreach (Band b in Model.MemberOfBands)
-    {<div class="row">
-        <div class="col-xs-2">
-            <div class="text-primary">@Html.ActionLink(b.Name, "BandDashboard", "Home", new { bandId = b.Id }, null)</div>
-        </div>
-        <div class="col-xs-3">
-            @foreach (ApplicationUser u in b.Members)
-            {
-                @Html.ActionLink(u.FullName, "Details", "Users", new { userId = u.Id }, null)
-            }
-        </div>
-    </div>
-    }
 </div>
+
+
+
+
+
+
 
 @section scripts
 {
     <script>
-    $(document).ready(function () {
+        $(document).ready(function () {
 
-        $("h3").click(function () {
-            alert("!!!!!");
-        })
-
-    });
-</script>
-    }
+            $("h3").click(function () {
+                alert("!!!!!");
+            });
+        });
+    </script>
+}

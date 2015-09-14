@@ -184,6 +184,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AuthControllers\AccountController.cs" />
     <Compile Include="Controllers\BandsController.cs" />
+    <Compile Include="Models\ViewModels\QueryByInstrumentViewModel.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\AuthControllers\ManageController.cs" />
@@ -202,9 +203,11 @@
     <Compile Include="Models\ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\Band.cs" />
+    <Compile Include="Models\ViewModels\AddMemberViewModel.cs" />
     <Compile Include="Models\ViewModels\BandDashboardVM.cs" />
-    <Compile Include="Models\ViewModels\BandSearchViewModel.cs" />
+    <Compile Include="Models\ViewModels\NeedBandQueryViewModel.cs" />
     <Compile Include="Models\ViewModels\InstrumentSkillsViewModel.cs" />
+    <Compile Include="Models\ViewModels\QueryResults.cs" />
     <Compile Include="Models\ViewModels\UserDashboardViewModel.cs" />
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -269,13 +272,14 @@
     <Content Include="Views\Home\UserDashboard.cshtml" />
     <Content Include="Views\Bands\Create.cshtml" />
     <Content Include="Views\Bands\Delete.cshtml" />
-    <Content Include="Views\Bands\Details.cshtml" />
     <Content Include="Views\Bands\Edit.cshtml" />
     <Content Include="Views\Bands\Index.cshtml" />
     <Content Include="Views\Home\BandDashboard.cshtml" />
     <Content Include="Views\Users\UserProfile.cshtml" />
     <Content Include="Views\Users\ModSkills.cshtml" />
     <Content Include="Views\Home\BandSearch.cshtml" />
+    <Content Include="Views\Bands\AddMember.cshtml" />
+    <Content Include="Views\Bands\QueryByInstrument.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Admin\" />

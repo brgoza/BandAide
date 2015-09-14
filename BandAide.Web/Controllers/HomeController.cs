@@ -29,15 +29,17 @@ namespace BandAide.Web.Controllers
         [Authorize]
         public ActionResult BandSearch()
         {
-            BandSearchViewModel bandSearchVM = new BandSearchViewModel(GetCurrentUser());
-            return View(bandSearchVM);
+            NeedBandQueryViewModel needBandQueryVm = new NeedBandQueryViewModel(GetCurrentUser());
+            return View(needBandQueryVm);
         }
 
         [Authorize]
         public ActionResult BandDashboard(Guid? bandId)
         {
-            var band = _db.Bands.Find(bandId);
             var currentUser = GetCurrentUser();
+            var band = _db.Bands.Find(bandId);
+
+            if (currentUser == null || band == null) return View("Index"); 
             var isUserAdmin = band.Admins.Contains(currentUser);
             BandDashboardVM bandVM = new BandDashboardVM(_db.Bands.Find(bandId), isUserAdmin);
             return View(bandVM);

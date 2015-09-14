@@ -5,14 +5,14 @@ using System.Web;
 
 namespace BandAide.Web.Models
 {
-    public class BandSearchViewModel
+    public class NeedBandQueryViewModel
     {
         public ApplicationUser User { get; set; }
         public InstrumentSkill PreferredInstrument { get; set; }
 
         public List<Band> SearchResults { get; set; }
 
-        public BandSearchViewModel(ApplicationUser user)
+        public NeedBandQueryViewModel(ApplicationUser user)
         {
                      User = user;
         }

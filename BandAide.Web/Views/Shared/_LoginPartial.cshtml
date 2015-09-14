@@ -10,7 +10,7 @@
             <ul class="dropdown-menu">
                 <li>@Html.ActionLink("Edit Profile", "UserProfile", "Users", new { Id = User.Identity.GetUserId() }, null)</li>
                 <li>@Html.ActionLink("My Dashboard", "UserDashboard", "Home", null, null)</li>
-                <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                <li><a href="javascript:document.getElementByBandId('logoutForm').submit()">Log off</a></li>
             </ul>
     </ul>
 }
