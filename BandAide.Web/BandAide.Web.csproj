@@ -280,6 +280,7 @@
     <Content Include="Views\Home\BandSearch.cshtml" />
     <Content Include="Views\Bands\AddMember.cshtml" />
     <Content Include="Views\Bands\QueryByInstrument.cshtml" />
+    <Content Include="Views\Bands\QueryResults.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Admin\" />

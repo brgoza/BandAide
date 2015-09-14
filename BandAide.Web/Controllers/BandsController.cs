@@ -74,16 +74,19 @@ namespace BandAide.Web.Controllers
         [HttpPost]
         public ActionResult QueryByInstrument(Guid bandId, Guid instrumentId)
         {
-            var results = new QueryByInstrumentViewModel(GetBandById(bandId), Instrument.GetById(instrumentId, _db),_db);
-            
-            return View("QueryResults",results);
+            var results = new QueryByInstrumentViewModel(GetBandById(bandId), Instrument.GetById(instrumentId, _db), _db);
+            var newQuery = new NeedMemberQuery();
+            newQuery.Active = true;
+            newQuery.Band = results.Band;
+            newQuery.NeededInstruments = new List<Instrument>();
+            newQuery.NeededInstruments.Add(Instrument.GetById(instrumentId, _db));
+            newQuery.QueryStartedOn = DateTime.Now;
+            _db.NeedMemberQueriesDbSet.Add(newQuery);
+            _db.SaveChanges();
+            return View("QueryResults", results.SearchResults);
         }
 
-        public ActionResult QueryResults(List<NeedMemberQuery> results)
-        {
-            return View(results);
-        }
-        public Band GetBandById(Guid bandId)
+            public Band GetBandById(Guid bandId)
         {
             return _db.Bands.Find(bandId);
         }
