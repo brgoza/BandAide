@@ -15,20 +15,22 @@
 }
 else
 {
-    <div class="row">
-        <div class="col-xs-3">Band</div>
-    </div>
+
     <div class="container">
+        <div class="row">
+            <div class="col-xs-4">Band</div>
+            <div class="col-xs-8">Members</div>
+        </div>
         @foreach (var b in Model.MemberOfBands)
         {
             <div class="row">
-                <div class="col-xs-2">
+                <div class="col-xs-4">
                     <div class="text-primary">@Html.ActionLink(b.Name, "BandDashboard", "Home", new { bandId = b.Id }, null)</div>
                 </div>
-                <div class="col-xs-3">
+                <div class="col-xs-8">
                     @foreach (var u in b.Members)
                     {
-                        @Html.ActionLink(u.FullName, "Details", "Users", new { userId = u.Id }, null)
+                        @Html.ActionLink(u.FullName, "Details", "Users", new { userId = u.Id }, null) <br />
                     }
                 </div>
             </div>

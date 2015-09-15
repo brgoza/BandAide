@@ -11,24 +11,23 @@
 
 
 <body style="margin-top:0px;padding-top:0px">
-    <div class="header-content"><img src="~/Content/Banner.png" /></div>
-    <div class="navbar navbar-inverse">
+    <div class="header-content"><img class="img-responsive" src="~/Content/Banner.png" /></div>
         @Html.Partial("_LoginPartial")
-    </div>
 
-     <div class="container body-content">
-        @RenderBody()
-    </div>
-  
-    <footer class="navbar-fixed-bottom"
-            style="background-color: lightgray; height: 25px">
-        <div class="container"><di v class="text-muted">Footer</div>
-    </footer>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/modernizr")
-    @Styles.Render("~/Content/css")
-    @RenderSection("scripts", required: false)
+        <div class="container body-content">
+            @RenderBody()
+        </div>
+
+        <footer class="navbar-fixed-bottom"
+                style="background-color: lightgray; height: 25px">
+            <div class="container"><di v class="text-muted">Footer</div>
+        </footer>
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @Scripts.Render("~/bundles/modernizr")
+        @Styles.Render("~/Content/css")
+        @RenderSection("scripts", required: false)
 </body>
 </html>

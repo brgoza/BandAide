@@ -59,7 +59,11 @@ namespace BandAide.Web.Controllers
         public ActionResult AddMember(Guid bandId, string NameOfUserToInvite)
         {
             ApplicationUser invitee = _db.Users.FirstOrDefault(x => x.UserName == NameOfUserToInvite);
-            GetBandById(bandId).AddMember(invitee, _db);
+            var band = GetBandById(bandId);
+            if (!band.Members.Contains(invitee))
+            {
+                GetBandById(bandId).AddMember(invitee, _db);
+            }
             return RedirectToAction("BandDashBoard", "Home", new { bandId = bandId });
         }
 
@@ -78,16 +82,20 @@ namespace BandAide.Web.Controllers
             var instrument = _db.InstrumentsDbSet.Find(selectedInstrumentId);
             var band = _db.Bands.Find(bandId);
             var vm = new QueryByInstrumentViewModel(band, instrument);
-            var newQuery = new NeedMemberQuery(band,instrument);
+            var newQuery = new NeedMemberQuery(band, instrument);
             newQuery.Active = true;
             var results = newQuery.ExecuteQuery(_db);
-            _db.NeedMemberQueriesDbSet.Add(newQuery);
-            _db.SaveChanges();
-          
+
+            if (!band.NeedMemberQueries.Any(x => x.Instrument.Id == newQuery.Instrument.Id))
+            {
+                _db.NeedMemberQueriesDbSet.Add(newQuery);
+                _db.SaveChanges();
+            }
+
             return View("QueryResults", results);
         }
 
-            public Band GetBandById(Guid bandId)
+        public Band GetBandById(Guid bandId)
         {
             return _db.Bands.Find(bandId);
         }

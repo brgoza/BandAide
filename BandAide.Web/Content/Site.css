@@ -1,20 +1,22 @@
 ﻿.navbar {
     padding-top: 0px;
     margin-top: 0px;
+  
     /*position: center;*/
     z-index: 1;
     text-align: center;
+    height: auto;
     display: block;
 }
 
 .header-content {
-    background: linear-gradient( to right, yellow, black );
+    background: linear-gradient( to bottom, black, #2b2626 );
 }
 
 .nav-pills {
-    /*background-color: #ff6a00;*/
-    background: linear-gradient( to right, yellow, black );
-    /*outline-color: white;*/
+    background-color: darkkhaki;
+    
+    height: 100%;
 }
 
 .dropdown-menu {
@@ -31,13 +33,13 @@
 
 
 body {
-    background-color
+    background-color: black;
     padding-top: 0px;
     padding-bottom: 20px;
 }
 /* Set padding to keep content from hitting the edges */
-.body-content { 
-    background:black;
+.body-content {
+    background: black;
     color: white;
     padding-left: 15px;
     padding-right: 15px;
