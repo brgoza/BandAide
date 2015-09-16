@@ -18,12 +18,13 @@ namespace BandAide.Web.Models
         public virtual List<Genre> Genres { get; set; }
         public virtual List<NeedMemberQuery> NeedMemberQueries { get; set; }
 
-        public Boolean AddMember(ApplicationUser user, ApplicationDbContext context)
+        public bool AddMember(ApplicationUser user, ApplicationDbContext context)
         {
-            this.Members.Add(user);
+            if (Members.Contains(user)) return false;
+            Members.Add(user);
             context.SaveChanges();
             return true;
         }
-       
+        
     }
 }

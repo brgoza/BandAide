@@ -192,6 +192,12 @@
     <Compile Include="Migrations\201509141647498_modified_needBandQueryModel.Designer.cs">
       <DependentUpon>201509141647498_modified_needBandQueryModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201509150342169_added_invite_model.cs" />
+    <Compile Include="Migrations\201509150342169_added_invite_model.Designer.cs">
+      <DependentUpon>201509150342169_added_invite_model.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Invite.cs" />
+    <Compile Include="Models\QueryForMembersResult.cs" />
     <Compile Include="Models\ViewModels\QueryByInstrumentViewModel.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -231,6 +237,8 @@
     <Content Include="Content\Banner.png" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\keys.png" />
+    <Content Include="Content\semi-transparent-buttons.css" />
     <Content Include="Content\sticky-footer.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -278,18 +286,17 @@
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Home\UserDashboard.cshtml" />
     <Content Include="Views\Bands\Create.cshtml" />
-    <Content Include="Views\Bands\Delete.cshtml" />
-    <Content Include="Views\Bands\Edit.cshtml" />
     <Content Include="Views\Bands\Index.cshtml" />
     <Content Include="Views\Home\BandDashboard.cshtml" />
     <Content Include="Views\Users\UserProfile.cshtml" />
     <Content Include="Views\Users\ModSkills.cshtml" />
     <Content Include="Views\Home\BandSearch.cshtml" />
-    <Content Include="Views\Bands\AddMember.cshtml" />
+    <Content Include="Views\Bands\AddMemberByName.cshtml" />
     <Content Include="Views\Bands\QueryByInstrument.cshtml" />
     <Content Include="Views\Bands\QueryResults.cshtml" />
     <Content Include="Views\Users\QueryForBand.cshtml" />
     <Content Include="Views\Users\QueryResults.cshtml" />
+    <Content Include="Views\Shared\_MenuPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Admin\" />
@@ -314,6 +321,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201509141647498_modified_needBandQueryModel.resx">
       <DependentUpon>201509141647498_modified_needBandQueryModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509150342169_added_invite_model.resx">
+      <DependentUpon>201509150342169_added_invite_model.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

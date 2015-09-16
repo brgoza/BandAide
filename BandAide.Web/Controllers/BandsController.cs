@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
+using System.Web.Caching;
 using System.Web.Mvc;
 using BandAide.Web.Models;
 using BandAide.Web.Models.ViewModels;
@@ -48,21 +49,27 @@ namespace BandAide.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult AddMember(Guid bandId)
+        public ActionResult AddMemberByName(Guid bandId)
         {
             var band = GetBandById(bandId);
             var vm = new AddMemberViewModel { Band = band };
+
             return View(vm);
         }
 
-        [HttpPost]
-        public ActionResult AddMember(Guid bandId, string NameOfUserToInvite)
+        
+
+        public ActionResult AddMember(Guid bandId, string NameOfUserToInvite, Guid? instrumentId = null)
         {
             ApplicationUser invitee = _db.Users.FirstOrDefault(x => x.UserName == NameOfUserToInvite);
             var band = GetBandById(bandId);
             if (!band.Members.Contains(invitee))
             {
                 GetBandById(bandId).AddMember(invitee, _db);
+                }
+            if (instrumentId != null)
+            {
+                DeactivateQuery(bandId, instrumentId);
             }
             return RedirectToAction("BandDashBoard", "Home", new { bandId = bandId });
         }
@@ -70,7 +77,7 @@ namespace BandAide.Web.Controllers
         [HttpGet]
         public ActionResult QueryByInstrument(Guid bandId)
         {
-            var instruments = _db.InstrumentsDbSet.ToList();
+            var instruments = _db.Instruments.ToList();
             var band = GetBandById(bandId);
             var vm = new QueryByInstrumentViewModel(band, instruments);
             return View(vm);
@@ -79,20 +86,31 @@ namespace BandAide.Web.Controllers
         [HttpPost]
         public ActionResult QueryByInstrument(Guid bandId, Guid selectedInstrumentId)
         {
-            var instrument = _db.InstrumentsDbSet.Find(selectedInstrumentId);
+            var instrument = _db.Instruments.Find(selectedInstrumentId);
             var band = _db.Bands.Find(bandId);
-            var vm = new QueryByInstrumentViewModel(band, instrument);
-            var newQuery = new NeedMemberQuery(band, instrument);
-            newQuery.Active = true;
-            var results = newQuery.ExecuteQuery(_db);
+         var newQuery = new NeedMemberQuery(band, instrument) { Active = true };
+            var results = new QueryForMembersResult(band, instrument, newQuery.ExecuteQuery(_db));
 
-            if (!band.NeedMemberQueries.Any(x => x.Instrument.Id == newQuery.Instrument.Id))
+            if (band.NeedMemberQueries.All(x => x.Instrument.Id != newQuery.Instrument.Id))
             {
                 _db.NeedMemberQueriesDbSet.Add(newQuery);
                 _db.SaveChanges();
             }
 
             return View("QueryResults", results);
+        }
+
+
+        private bool DeactivateQuery(Guid bandId, Guid? instrumentId)
+        {
+            var row = _db.NeedMemberQueriesDbSet.FirstOrDefault(x => x.Band.Id == bandId && x.Instrument.Id == instrumentId);
+            if (row == null)
+            {
+                return false;
+            }
+            row.Active = false;
+            _db.SaveChanges();
+            return true;
         }
 
         public Band GetBandById(Guid bandId)
@@ -104,13 +122,6 @@ namespace BandAide.Web.Controllers
         {
             return _db.Users.Find(userId);
         }
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+     
     }
 }

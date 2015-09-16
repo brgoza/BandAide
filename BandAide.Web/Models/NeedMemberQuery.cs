@@ -13,7 +13,7 @@ namespace BandAide.Web.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
 
-        public Band Band { get; set; }
+        public virtual Band Band { get; set; }
         public bool Active { get; set; }
         public DateTime QueryStartedOn { get; set; }
         public int HitCount { get; set; }

@@ -25,9 +25,9 @@ namespace BandAide.Web.Models.ViewModels
             User = user;
             UserId = user.Id;
             InstrumentSkills = skills;
-            var x = context.InstrumentsDbSet.ToList();
+            var x = context.Instruments.ToList();
             AllInstruments = new List<SelectListItem>();
-            foreach (Instrument i in context.InstrumentsDbSet)
+            foreach (Instrument i in context.Instruments)
             {
                 AllInstruments.Add(new SelectListItem { Value = i.Id.ToString(), Text = i.Name });
             }

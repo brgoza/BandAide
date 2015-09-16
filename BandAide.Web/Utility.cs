@@ -77,7 +77,7 @@ namespace BandAide.Web
 
         public static Instrument RandomInstrument(ApplicationDbContext db)
         {
-            return db.InstrumentsDbSet.OrderBy(x => Guid.NewGuid()).FirstOrDefault();
+            return db.Instruments.OrderBy(x => Guid.NewGuid()).FirstOrDefault();
         }
     }
 }

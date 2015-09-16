@@ -10,14 +10,16 @@ namespace BandAide.Web.Models.ViewModels
         public Band Band { get; set; }
         public ApplicationUser UserToInvite { get; set; }
         public string NameOfUserToInvite { get; set; }
+        public Instrument Instrument { get; set; }
 
         public AddMemberViewModel()
         {
 
         }
 
-        public AddMemberViewModel(Band band, ApplicationUser userToAdd)
+        public AddMemberViewModel(Band band, ApplicationUser userToAdd, Instrument instrument)
         {
+            Instrument = instrument;
             Band = band;
             UserToInvite = userToAdd;
         }
@@ -28,16 +30,16 @@ namespace BandAide.Web.Models.ViewModels
             UserToInvite = context.Users.Find(userToAddGuid);
         }
 
-        public static AddMemberViewModel GenerateAddMemberViewModel(Guid bandId, string userName, ApplicationDbContext context)
-        {
-            AddMemberViewModel newModel = new AddMemberViewModel {Band = context.Bands.Find(bandId)};
-            ApplicationUser userToInvite = context.Users.FirstOrDefault(x => x.UserName == userName);
-            if (userToInvite == null)
-            {
-                return null;
-            }
-            newModel.UserToInvite = userToInvite;
-            return newModel;
-        }
+        //public static AddMemberViewModel GenerateAddMemberViewModel(Guid bandId, string userName, ApplicationDbContext context)
+        //{
+        //    AddMemberViewModel newModel = new AddMemberViewModel {Band = context.Bands.Find(bandId)};
+        //    ApplicationUser userToInvite = context.Users.FirstOrDefault(x => x.UserName == userName);
+        //    if (userToInvite == null)
+        //    {
+        //        return null;
+        //    }
+        //    newModel.UserToInvite = userToInvite;
+        //    return newModel;
+        //}
     }
 }

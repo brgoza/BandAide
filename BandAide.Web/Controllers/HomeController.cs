@@ -22,7 +22,7 @@ namespace BandAide.Web.Controllers
         [Authorize]
         public ActionResult UserDashBoard()
         {
-            UserDashboardViewModel userVM = new UserDashboardViewModel(GetCurrentUser());
+            var userVM = new UserDashboardViewModel(GetCurrentUser());
             return View(userVM);
         }
         

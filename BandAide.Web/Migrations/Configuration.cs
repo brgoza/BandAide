@@ -74,11 +74,11 @@ namespace BandAide.Web.Migrations
         }
         protected void SeedInstruments(ApplicationDbContext context)
         {
-            foreach (var i in InstrumentNames.Where(i => !context.InstrumentsDbSet.Any(x => x.Name == i)))
+            foreach (var i in InstrumentNames.Where(i => !context.Instruments.Any(x => x.Name == i)))
             {
                 var instr = new Instrument();
                 instr.Name = i;
-                context.InstrumentsDbSet.Add(instr);
+                context.Instruments.Add(instr);
             }
         }
         protected void SeedInstrumentSkills(ApplicationDbContext context)

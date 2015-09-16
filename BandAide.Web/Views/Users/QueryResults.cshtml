@@ -1,35 +1,41 @@
-﻿@model IEnumerable<BandAide.Web.Models.Band>
+﻿@model List<BandAide.Web.Models.Band>
 
 @{
-    ViewBag.Title = "QueryResults";
+    ViewBag.Title = "Query Results";
 }
 
-<h2>QueryResults</h2>
+<div class="container">
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreatedOn)
-        </th>
-        <th></th>
-    </tr>
+    <div class="row">
+        <div class="col-xs-3">
+            Band
+        </div>
+        <div class="col-xs-9">
+            Members
+        </div>
+    </div>
+    <hr />
+    @foreach (var item in Model)
+    {
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreatedOn)
-        </td>
-        
-    </tr>
-}
+        <div class="row">
+            <div class="col-xs-4">
+                @Html.ActionLink(item.Name, "BandDashboard", "Home", new { bandId = item.Id }, null) <br />
+            </div>
 
-</table>
+            <div class="col-xs-8">
+                @foreach (var u in item.Members)
+                {
+                    @Html.ActionLink(u.FullName, "Details", "Users", new { userId = u.Id }, null)
+                    <div class="text-muted">
+                    @foreach (var s in u.InstrumentSkills)
+                    {
+                        @(s.Instrument.Name + " ")
+                    }
+                    </div>
+                }
+            </div>
+        </div>
+    }
+
+
