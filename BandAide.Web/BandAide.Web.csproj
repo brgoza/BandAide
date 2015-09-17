@@ -234,6 +234,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\background.png" />
+    <Content Include="Content\band.png" />
     <Content Include="Content\Banner.png" />
     <Content Include="Content\bass_icon.png" />
     <Content Include="Content\bootstrap.css" />

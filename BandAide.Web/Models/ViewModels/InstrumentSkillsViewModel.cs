@@ -11,7 +11,8 @@ namespace BandAide.Web.Models.ViewModels
         public ApplicationDbContext db { get; private set; }
         public ApplicationUser User { get; set; }
         public string UserId { get; set; }
-        public List<SelectListItem> AllInstruments { get; set; }
+
+        public SelectList InstrumentsSelectList { get; set; }
         public List<SelectListItem> Proficiencies { get; set; }
         public List<InstrumentSkill> InstrumentSkills { get; set; }
         public Guid SelectedInstrumentId { get; set; }
@@ -26,11 +27,11 @@ namespace BandAide.Web.Models.ViewModels
             UserId = user.Id;
             InstrumentSkills = skills;
             var x = context.Instruments.ToList();
-            AllInstruments = new List<SelectListItem>();
-            foreach (Instrument i in context.Instruments)
-            {
-                AllInstruments.Add(new SelectListItem { Value = i.Id.ToString(), Text = i.Name });
-            }
+            InstrumentsSelectList = new SelectList(context.Instruments,"Id","Name");
+            //foreach (Instrument i in context.Instruments)
+            //{
+            //    InstrumentsSelectList.Add(new SelectListItem { Value = i.Id.ToString(), Text = i.Name });
+            //}
 
         }
     }

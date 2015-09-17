@@ -90,12 +90,9 @@ namespace BandAide.Web.Controllers
             var newQuery = new NeedMemberQuery(band, instrument) { Active = true };
             var results = new NeedMembersQueryResultViewModel(band, instrument, newQuery.ExecuteQuery(_db));
 
-            if (band.NeedMemberQueries.All(x => x.Instrument.Id != newQuery.Instrument.Id))
-            {
-                _db.NeedMemberQueriesDbSet.Add(newQuery);
+               _db.NeedMemberQueriesDbSet.Add(newQuery);
                 _db.SaveChanges();
-            }
-
+            
             return View("QueryResults", results);
         }
 

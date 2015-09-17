@@ -10,22 +10,29 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <hr />
-        <div class="form-group">
-            @Html.DropDownListFor(model => model.SelectedInstrumentId, Model.MyInstrumentsSelectList)
-            <div class="col-md-10">
-                @Html.HiddenFor(model => model.User.Id)
+        @foreach (var inst in Model.MyInstrumentsSelectList)
+        {
+            
+            <a href = "#" >
+                <img src=@("~/Content/   piano_icon.png") />
+                <img src =@("../../Content/"+inst.Text + "_icon.png")/>
+            </a>
+            }
+            <div class="form-group">
+                @Html.DropDownListFor(model => model.SelectedInstrumentId, Model.MyInstrumentsSelectList)
+                <div class="col-md-10">
+                    @Html.HiddenFor(model => model.User.Id)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Start search" class="btn btn-default" />
+                </div>
             </div>
         </div>
+        }
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Start search" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }

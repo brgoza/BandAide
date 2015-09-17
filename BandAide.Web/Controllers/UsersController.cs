@@ -46,20 +46,19 @@ namespace BandAide.Web.Controllers
         [HttpGet]
         public ActionResult ModSkills(Guid? id)
         {
-            var user = _db.Users.Find(id.ToString());
+            var user = GetCurrentUser();
             var vm = new InstrumentSkillsViewModel(user, user.InstrumentSkills, _db);
             return View(vm);
         }
 
-        [HttpPost]
-        public ActionResult ModSkills(InstrumentSkillsViewModel skillsVM)
+      public ActionResult AddSkill(Guid selectedInstrumentId, Proficiency proficiency)
         {
-            var user = _db.Users.Find(skillsVM.UserId);
+            var user = GetCurrentUser();
             var newSkill = new InstrumentSkill
             {
                 ApplicationUser = user,
-                Instrument = _db.Instruments.Find(skillsVM.SelectedInstrumentId),
-                Proficiency = skillsVM.SelectedProficiency
+                Instrument = _db.Instruments.Find(selectedInstrumentId),
+                Proficiency = (Proficiency)proficiency
             };
             user.InstrumentSkills.Add(newSkill);
             _db.SaveChanges();
@@ -98,6 +97,10 @@ namespace BandAide.Web.Controllers
             return _db.Bands.Find(bandId);
         }
 
+        public ApplicationUser GetCurrentUser()
+        {
+            return _db.Users.Find(HttpContext.User.Identity.GetUserId());
+        }
         public ApplicationUser GetUserById(Guid userId)
         {
             return _db.Users.Find(userId);

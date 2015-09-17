@@ -22,7 +22,7 @@ namespace BandAide.Web.Controllers
         [Authorize]
         public ActionResult UserDashBoard()
         {
-            var userVM = new UserDashboardViewModel(GetCurrentUser());
+            var userVM = new UserDashboardViewModel(GetCurrentUser(),_db);
             return View(userVM);
         }
         
@@ -34,7 +34,7 @@ namespace BandAide.Web.Controllers
 
             if (currentUser == null || band == null) return View("Index");
             var isUserAdmin = band.Admins.Contains(currentUser);
-            BandDashboardVM bandVM = new BandDashboardVM(_db.Bands.Find(bandId), isUserAdmin);
+            var bandVM = new BandDashboardVM(_db.Bands.Find(bandId), isUserAdmin);
             return View(bandVM);
         }
 
