@@ -22,9 +22,9 @@
                             @User.Identity.GetUserName() <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Edit Profile", "UserProfile", "Users", new { Id = User.Identity.GetUserId() }, null)</li>
+                            <li>@Html.ActionLink("Edit Profile", "UserProfile", "Users", new { Id = User.Identity.GetUserId() }, new {@class="dropdown-items"})</li>
                             <li>
-                                <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+                                <a class="dropdown-items" href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
                             </li>
                         </ul>
                     </li>

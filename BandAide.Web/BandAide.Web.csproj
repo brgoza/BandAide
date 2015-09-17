@@ -56,12 +56,20 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.3\lib\net45\System.Web.Cors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.3\lib\net45\System.Web.Http.Cors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -184,34 +192,25 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AuthControllers\AccountController.cs" />
     <Compile Include="Controllers\BandsController.cs" />
-    <Compile Include="Migrations\201509141623492_modified_needMemberQueryModel.cs" />
-    <Compile Include="Migrations\201509141623492_modified_needMemberQueryModel.Designer.cs">
-      <DependentUpon>201509141623492_modified_needMemberQueryModel.cs</DependentUpon>
+    <Compile Include="Migrations\201509161808235_azureMigration.cs" />
+    <Compile Include="Migrations\201509161808235_azureMigration.Designer.cs">
+      <DependentUpon>201509161808235_azureMigration.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201509141647498_modified_needBandQueryModel.cs" />
-    <Compile Include="Migrations\201509141647498_modified_needBandQueryModel.Designer.cs">
-      <DependentUpon>201509141647498_modified_needBandQueryModel.cs</DependentUpon>
+    <Compile Include="Migrations\201509162129251_removed_invites_table.cs" />
+    <Compile Include="Migrations\201509162129251_removed_invites_table.Designer.cs">
+      <DependentUpon>201509162129251_removed_invites_table.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201509150342169_added_invite_model.cs" />
-    <Compile Include="Migrations\201509150342169_added_invite_model.Designer.cs">
-      <DependentUpon>201509150342169_added_invite_model.cs</DependentUpon>
+    <Compile Include="Migrations\201509170254471_dropped_genre_tables.cs" />
+    <Compile Include="Migrations\201509170254471_dropped_genre_tables.Designer.cs">
+      <DependentUpon>201509170254471_dropped_genre_tables.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\Invite.cs" />
-    <Compile Include="Models\QueryForMembersResult.cs" />
-    <Compile Include="Models\ViewModels\QueryByInstrumentViewModel.cs" />
+    <Compile Include="Models\ViewModels\NeedMembersQueryResultViewModel.cs" />
+    <Compile Include="Models\ViewModels\NeedMembersQueryViewModel.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\AuthControllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201509101527317_Initial.cs" />
-    <Compile Include="Migrations\201509101527317_Initial.Designer.cs">
-      <DependentUpon>201509101527317_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201509101646183_made_dob_nullable.cs" />
-    <Compile Include="Migrations\201509101646183_made_dob_nullable.Designer.cs">
-      <DependentUpon>201509101646183_made_dob_nullable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ViewModels\AccountViewModels.cs" />
@@ -234,12 +233,16 @@
     <Compile Include="Utility.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\background.png" />
     <Content Include="Content\Banner.png" />
+    <Content Include="Content\bass_icon.png" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\drums_icon.png" />
+    <Content Include="Content\guitar_icon.png" />
     <Content Include="Content\keys.png" />
-    <Content Include="Content\semi-transparent-buttons.css" />
-    <Content Include="Content\sticky-footer.css" />
+    <Content Include="Content\piano_icon.png" />
+    <Content Include="Content\vocal_icon.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -247,6 +250,8 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="App_Data\userData.csv" />
+    <Content Include="App_Data\bandNames.csv" />
+    <None Include="Properties\PublishProfiles\bandaide.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -281,7 +286,6 @@
     <Content Include="Views\Manage\SetPassword.cshtml" />
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Users\Details.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Home\UserDashboard.cshtml" />
@@ -310,20 +314,14 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201509101527317_Initial.resx">
-      <DependentUpon>201509101527317_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201509161808235_azureMigration.resx">
+      <DependentUpon>201509161808235_azureMigration.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509101646183_made_dob_nullable.resx">
-      <DependentUpon>201509101646183_made_dob_nullable.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201509162129251_removed_invites_table.resx">
+      <DependentUpon>201509162129251_removed_invites_table.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509141623492_modified_needMemberQueryModel.resx">
-      <DependentUpon>201509141623492_modified_needMemberQueryModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509141647498_modified_needBandQueryModel.resx">
-      <DependentUpon>201509141647498_modified_needBandQueryModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509150342169_added_invite_model.resx">
-      <DependentUpon>201509150342169_added_invite_model.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201509170254471_dropped_genre_tables.resx">
+      <DependentUpon>201509170254471_dropped_genre_tables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

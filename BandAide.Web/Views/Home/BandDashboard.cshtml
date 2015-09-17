@@ -15,36 +15,37 @@ else
     <div class="text-primary">Looks like you need some people to play with.</div>
 }
 
-<div class="row col-xs-12">
-    <h5>Members</h5><hr />
+<div class="row">
+    <div class="col-xs-6">
+        <h5>Members</h5>
+    </div>
+    <div class="col-xs-6">
+        <h5>Actions</h5>
+    </div>
 </div>
 
-    @foreach (var u in Model.BandMembers)
-    {<div class="row">
-        <div class="col-xs-3">
+@foreach (var u in Model.BandMembers)
+{<div class="row">
+
+        <div class="col-xs-2">
             @Html.ActionLink(u.FullName, "Details", "Users", new { userId = u.Id }, null)
         </div>
-        <div class="col-xs-6">
-            @foreach (var s in u.Instruments)
+        <div class="col-xs-4">
+            @foreach (var s in u.InstrumentSkills)
             {
-                <div class="text-muted">@s.Name</div>
+                <div class="text-muted">@s.Instrument.Name</div>
             }
         </div>
-    </div>
-        }
-<div class="row col-xs-12">
-    <h5>Actions</h5><hr />
-</div>
-<div class="row">
-    <div class="col-xs-12">
-        @Html.ActionLink("Invite member", "AddMember", "Bands", new { bandId = Model.BandId }, null)<br />
-        @Html.ActionLink("Search for member by instrument", "QueryByInstrument", "Bands", new { bandId = Model.BandId }, null)
-        <hr />
-        Currently searching for:
-    </div>
-</div>
-
-    @foreach (var q in Model.NeedMemberQueries)
-    {
-       @q.Instrument.Name <br />
-    }
+     <div class="col-xs-6">
+         @Html.ActionLink("Invite member", "AddMember", "Bands", new { bandId = Model.BandId }, null)<br />
+         @Html.ActionLink("Search for member by instrument", "QueryByInstrument", "Bands", new { bandId = Model.BandId }, null)
+     </div>
+        </div>
+}
+<hr/>   
+<div class="row"></div>
+<h5>Currently searching for:</h5>
+@foreach (var q in Model.NeedMemberQueries)
+{
+    @q.Instrument.Name <br />
+}

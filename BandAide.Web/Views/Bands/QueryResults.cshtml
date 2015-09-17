@@ -1,4 +1,4 @@
-﻿@model BandAide.Web.Models.QueryForMembersResult
+﻿@model BandAide.Web.Models.NeedMembersQueryResultViewModel
 
 @{
     ViewBag.Title = "Query Results";
@@ -12,6 +12,7 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.FullName)
+                @Html.ActionLink("Invite", "AddMember", "Bands", new { bandId = Model.Band.Id, NameOfUserToInvite = item.UserName, InstrumentId = Model.Instrument.Id }, null)
             </td>
             <td>
                 @foreach (var skill in item.InstrumentSkills)
@@ -35,7 +36,7 @@
             <td>
               <a href=@("mailto:"+item.Email)>@item.Email</a> 
             </td>
-            @Html.ActionLink("Invite", "AddMember","Bands", new {bandId=Model.Band.Id, NameOfUserToInvite=item.UserName, InstrumentId=Model.Instrument.Id},null)
+         
         </tr>
     }
 

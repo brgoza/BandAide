@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 
-namespace BandAide.Web.Models
+namespace BandAide.Web.Models.ViewModels
 {
     public class IndexViewModel
     {

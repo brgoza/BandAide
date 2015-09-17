@@ -15,7 +15,7 @@
         @Html.HiddenFor(model => model.Id)
         @Html.HiddenFor(model => model.UserName)
         <div class="form-group">
-            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("First name:", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
@@ -23,23 +23,15 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Last name:", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        @*<div class="form-group">
-                @Html.LabelFor(model => model.ImageArray, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.ImageArray, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.ImageArray, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
-
         <div class="form-group">
-            @Html.LabelFor(model => model.DOB, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Date of birth:", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.DOB, "", new { @class = "text-danger" })
@@ -49,7 +41,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Bio, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Bio, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.Bio, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Bio, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -89,7 +81,7 @@
         <div class="form-group">
             @Html.ActionLink("Modify instrument skills", "ModSkills", "Users", new { id = Model.Id }, htmlAttributes: new { @class = "col-md-2" })
             <div class="col-md-10">
-                @foreach (BandAide.Web.Models.InstrumentSkill skill in Model.InstrumentSkills)
+                @foreach (var skill in Model.InstrumentSkills)
                 {
                     <div class="text-info"> @skill.Instrument.Name - @skill.Proficiency</div>
                 }

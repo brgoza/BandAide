@@ -7,13 +7,13 @@ namespace BandAide.Web.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class added_invite_model : IMigrationMetadata
+    public sealed partial class dropped_genre_tables : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(added_invite_model));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(dropped_genre_tables));
         
         string IMigrationMetadata.Id
         {
-            get { return "201509150342169_added_invite_model"; }
+            get { return "201509170254471_dropped_genre_tables"; }
         }
         
         string IMigrationMetadata.Source

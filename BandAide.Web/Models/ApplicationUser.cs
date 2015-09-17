@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Drawing;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
@@ -29,12 +30,22 @@ namespace BandAide.Web.Models
         public virtual List<Band> AdminOfBands { get; set; }
         public virtual List<InstrumentSkill> InstrumentSkills { get; set; }
         public virtual List<Instrument> Instruments { get; set; }
+
+        public virtual Instrument BestInstrument
+        {
+
+            get
+            {
+                return InstrumentSkills.FirstOrDefault(x => x.Proficiency == InstrumentSkills.Max(y => y.Proficiency))?.Instrument;
+            }
+        }
+
         public virtual List<NeedBandQuery> NeedBandQueries { get; set; }
 
 
         //[NotMapped]
         //public Image ProfileImage => Utility.ByteArrayToImage(ImageArray);
-  
+
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

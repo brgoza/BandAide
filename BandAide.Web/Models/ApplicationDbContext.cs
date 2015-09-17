@@ -11,7 +11,7 @@ namespace BandAide.Web.Models
             : base("DefaultConnection", false)
         {
         }
-        public DbSet<Invite> Invites { get; set;}
+        
         public DbSet<InstrumentSkill> InstrumentSkills { get; set; }
         public DbSet<Instrument> Instruments { get; set; }
         public DbSet<Band> Bands { get; set; }

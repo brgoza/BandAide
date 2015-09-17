@@ -3,7 +3,7 @@ namespace BandAide.Web.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Initial : DbMigration
+    public partial class azureMigration : DbMigration
     {
         public override void Up()
         {
@@ -25,7 +25,7 @@ namespace BandAide.Web.Migrations
                         FirstName = c.String(),
                         LastName = c.String(),
                         ImageArray = c.Binary(),
-                        DOB = c.DateTime(nullable: false),
+                        DOB = c.DateTime(),
                         Bio = c.String(),
                         StreetAddress = c.String(),
                         City = c.String(),
@@ -66,13 +66,10 @@ namespace BandAide.Web.Migrations
                         Id = c.Guid(nullable: false, identity: true),
                         Name = c.String(),
                         ApplicationUser_Id = c.String(maxLength: 128),
-                        NeedMemberQuery_Id = c.Guid(),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUser_Id)
-                .ForeignKey("dbo.NeedMemberQueries", t => t.NeedMemberQuery_Id)
-                .Index(t => t.ApplicationUser_Id)
-                .Index(t => t.NeedMemberQuery_Id);
+                .Index(t => t.ApplicationUser_Id);
             
             CreateTable(
                 "dbo.InstrumentSkills",
@@ -111,10 +108,13 @@ namespace BandAide.Web.Migrations
                         QueryStartedOn = c.DateTime(nullable: false),
                         HitCount = c.Int(nullable: false),
                         QueryText = c.String(),
+                        Instrument_Id = c.Guid(),
                         User_Id = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Instruments", t => t.Instrument_Id)
                 .ForeignKey("dbo.AspNetUsers", t => t.User_Id)
+                .Index(t => t.Instrument_Id)
                 .Index(t => t.User_Id);
             
             CreateTable(
@@ -155,10 +155,31 @@ namespace BandAide.Web.Migrations
                         HitCount = c.Int(nullable: false),
                         QueryText = c.String(),
                         Band_Id = c.Guid(),
+                        Instrument_Id = c.Guid(),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Bands", t => t.Band_Id)
-                .Index(t => t.Band_Id);
+                .ForeignKey("dbo.Instruments", t => t.Instrument_Id)
+                .Index(t => t.Band_Id)
+                .Index(t => t.Instrument_Id);
+            
+            CreateTable(
+                "dbo.Invites",
+                c => new
+                    {
+                        Id = c.Guid(nullable: false, identity: true),
+                        Active = c.Boolean(nullable: false),
+                        Band_Id = c.Guid(),
+                        Invitee_Id = c.String(maxLength: 128),
+                        Inviter_Id = c.String(maxLength: 128),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Bands", t => t.Band_Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.Invitee_Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.Inviter_Id)
+                .Index(t => t.Band_Id)
+                .Index(t => t.Invitee_Id)
+                .Index(t => t.Inviter_Id);
             
             CreateTable(
                 "dbo.AspNetRoles",
@@ -214,14 +235,18 @@ namespace BandAide.Web.Migrations
         public override void Down()
         {
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropForeignKey("dbo.Invites", "Inviter_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Invites", "Invitee_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Invites", "Band_Id", "dbo.Bands");
             DropForeignKey("dbo.Genres", "NeedMemberQuery_Id", "dbo.NeedMemberQueries");
-            DropForeignKey("dbo.Instruments", "NeedMemberQuery_Id", "dbo.NeedMemberQueries");
+            DropForeignKey("dbo.NeedMemberQueries", "Instrument_Id", "dbo.Instruments");
             DropForeignKey("dbo.NeedMemberQueries", "Band_Id", "dbo.Bands");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.NeedBandQueries", "User_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.Genres", "NeedBandQuery_Id", "dbo.NeedBandQueries");
             DropForeignKey("dbo.GenreBands", "Band_Id", "dbo.Bands");
             DropForeignKey("dbo.GenreBands", "Genre_Id", "dbo.Genres");
+            DropForeignKey("dbo.NeedBandQueries", "Instrument_Id", "dbo.Instruments");
             DropForeignKey("dbo.BandMembers", "ApplicationUsers", "dbo.Bands");
             DropForeignKey("dbo.BandMembers", "Bands", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
@@ -238,16 +263,20 @@ namespace BandAide.Web.Migrations
             DropIndex("dbo.BandAdmins", new[] { "ApplicationUsers" });
             DropIndex("dbo.BandAdmins", new[] { "Bands" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropIndex("dbo.Invites", new[] { "Inviter_Id" });
+            DropIndex("dbo.Invites", new[] { "Invitee_Id" });
+            DropIndex("dbo.Invites", new[] { "Band_Id" });
+            DropIndex("dbo.NeedMemberQueries", new[] { "Instrument_Id" });
             DropIndex("dbo.NeedMemberQueries", new[] { "Band_Id" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.Genres", new[] { "NeedMemberQuery_Id" });
             DropIndex("dbo.Genres", new[] { "NeedBandQuery_Id" });
             DropIndex("dbo.NeedBandQueries", new[] { "User_Id" });
+            DropIndex("dbo.NeedBandQueries", new[] { "Instrument_Id" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.InstrumentSkills", new[] { "Instrument_Id" });
             DropIndex("dbo.InstrumentSkills", new[] { "ApplicationUser_Id" });
-            DropIndex("dbo.Instruments", new[] { "NeedMemberQuery_Id" });
             DropIndex("dbo.Instruments", new[] { "ApplicationUser_Id" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
@@ -255,6 +284,7 @@ namespace BandAide.Web.Migrations
             DropTable("dbo.BandMembers");
             DropTable("dbo.BandAdmins");
             DropTable("dbo.AspNetRoles");
+            DropTable("dbo.Invites");
             DropTable("dbo.NeedMemberQueries");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.Genres");

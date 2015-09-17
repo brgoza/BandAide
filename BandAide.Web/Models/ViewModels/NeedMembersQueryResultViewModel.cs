@@ -5,12 +5,12 @@ using System.Web;
 
 namespace BandAide.Web.Models
 {
-    public class QueryForMembersResult
+    public class NeedMembersQueryResultViewModel
     {
         public List<ApplicationUser> Users { get; set; }
         public Band Band { get; set; }
         public Instrument Instrument { get; set; }
-        public QueryForMembersResult(Band band, Instrument instrument,List<ApplicationUser> users)
+        public NeedMembersQueryResultViewModel(Band band, Instrument instrument,List<ApplicationUser> users)
         {
             Band = band;
             Instrument = instrument;

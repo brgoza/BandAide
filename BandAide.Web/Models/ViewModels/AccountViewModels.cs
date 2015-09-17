@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace BandAide.Web.Models
+namespace BandAide.Web.Models.ViewModels
 {
     public class ExternalLoginConfirmationViewModel
     {

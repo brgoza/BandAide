@@ -5,7 +5,7 @@ using System.Web.Mvc;
 
 namespace BandAide.Web.Models.ViewModels
 {
-    public class QueryByInstrumentViewModel
+    public class NeedMembersQueryViewModel
     {
         public Band Band { get; set; }
 
@@ -17,13 +17,13 @@ namespace BandAide.Web.Models.ViewModels
         public List<ApplicationUser> Members => Band.Members;
         public List<ApplicationUser> SearchResults { get; set; }
 
-        public QueryByInstrumentViewModel(Band band, List<Instrument> instruments)
+        public NeedMembersQueryViewModel(Band band, List<Instrument> instruments)
         {
             InstrumentSelectList = new SelectList(instruments, "Id", "Name");
             Band = band;
         }
 
-        public QueryByInstrumentViewModel(Band band, Instrument instrument)
+        public NeedMembersQueryViewModel(Band band, Instrument instrument)
         {
             Band = band;
             SelectedInstrument = instrument;

@@ -57,19 +57,18 @@ namespace BandAide.Web.Controllers
             return View(vm);
         }
 
-        
+
 
         public ActionResult AddMember(Guid bandId, string NameOfUserToInvite, Guid? instrumentId = null)
         {
             ApplicationUser invitee = _db.Users.FirstOrDefault(x => x.UserName == NameOfUserToInvite);
             var band = GetBandById(bandId);
+            band.NeedMemberQueries.RemoveAll(x => x.Instrument.Id == instrumentId);
             if (!band.Members.Contains(invitee))
             {
-                GetBandById(bandId).AddMember(invitee, _db);
-                }
-            if (instrumentId != null)
-            {
-                DeactivateQuery(bandId, instrumentId);
+                band.AddMember(invitee, _db);
+                invitee?.NeedBandQueries.Clear();
+                _db.SaveChanges();
             }
             return RedirectToAction("BandDashBoard", "Home", new { bandId = bandId });
         }
@@ -77,19 +76,19 @@ namespace BandAide.Web.Controllers
         [HttpGet]
         public ActionResult QueryByInstrument(Guid bandId)
         {
-            var instruments = _db.Instruments.ToList();
             var band = GetBandById(bandId);
-            var vm = new QueryByInstrumentViewModel(band, instruments);
+            var instruments = _db.Instruments.ToList().Where(i => band.NeedMemberQueries.All(x => x.Instrument != i)).ToList();
+            var vm = new NeedMembersQueryViewModel(band, instruments);
             return View(vm);
         }
 
-        [HttpPost]
-        public ActionResult QueryByInstrument(Guid bandId, Guid selectedInstrumentId)
+       
+        public ActionResult ExecuteQueryByInstrument(Guid bandId, Guid selectedInstrumentId)
         {
             var instrument = _db.Instruments.Find(selectedInstrumentId);
             var band = _db.Bands.Find(bandId);
-         var newQuery = new NeedMemberQuery(band, instrument) { Active = true };
-            var results = new QueryForMembersResult(band, instrument, newQuery.ExecuteQuery(_db));
+            var newQuery = new NeedMemberQuery(band, instrument) { Active = true };
+            var results = new NeedMembersQueryResultViewModel(band, instrument, newQuery.ExecuteQuery(_db));
 
             if (band.NeedMemberQueries.All(x => x.Instrument.Id != newQuery.Instrument.Id))
             {
@@ -122,6 +121,6 @@ namespace BandAide.Web.Controllers
         {
             return _db.Users.Find(userId);
         }
-     
+
     }
 }
