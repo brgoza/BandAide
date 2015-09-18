@@ -3,24 +3,34 @@
 @{
     ViewBag.Title = "Query Results";
 }
-<h3>Query posted.  Current results follow: </h3>
+<h4>Query posted.</h4>
+<h5> Current results: </h5>
 
 <table class="table">
-   
+
     @foreach (var item in Model.Users)
     {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.FullName)
-                @Html.ActionLink("Invite", "AddMember", "Bands", new { bandId = Model.Band.Id, NameOfUserToInvite = item.UserName, InstrumentId = Model.Instrument.Id }, null)
+                @{
+                    try
+                    {
+                        @Html.ActionLink("Invite", "AddMember", "Bands", new { bandId = Model.Band.Id, NameOfUserToInvite = item.UserName, InstrumentId = Model.Instrument.Id }, null)
+                    }
+                    catch
+                    {
+                    }
+                }
+               
             </td>
             <td>
                 @foreach (var skill in item.InstrumentSkills)
                 {
-                    <div>@skill.Instrument.Name</div><div class="text-muted">@skill.Proficiency</div><br />
+                    @skill.Instrument.Name <div class="text-muted">@skill.Proficiency</div>
                 }
             </td>
-          <td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Bio)
             </td>
 
@@ -34,9 +44,9 @@
                 @Html.DisplayFor(modelItem => item.Zip)
             </td>
             <td>
-              <a href=@("mailto:"+item.Email)>@item.Email</a> 
+                <a href=@("mailto:"+item.Email)>@item.Email</a>
             </td>
-         
+
         </tr>
     }
 

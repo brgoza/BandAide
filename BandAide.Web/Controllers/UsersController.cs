@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.Entity;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -77,14 +78,18 @@ namespace BandAide.Web.Controllers
             return View(vm);
         }
 
-        [HttpPost]
-        public ActionResult QueryForBand(string userId, Guid selectedInstrumentId)
+     
+        [SuppressMessage("ReSharper", "InvertIf")]
+        public ActionResult QueryResults(string userId, Guid instrumentId)
         {
-            var instrument = _db.Instruments.Find(selectedInstrumentId);
             var user = _db.Users.Find(userId);
+            var instrument = _db.Instruments.Find(instrumentId);
+         
             var newQuery = new NeedBandQuery(user, instrument) {Active = true};
             var results = newQuery.ExecuteQuery(_db);
-            if (!user.NeedBandQueries.Any(x => x.Instrument.Id == newQuery.Instrument.Id))
+
+            // - make sure they don't already have a query for this instrument
+            if (user.NeedBandQueries.All(x => x.Instrument.Id != newQuery.Instrument.Id))
             {
                 _db.NeedBandQueriesDbSet.Add(newQuery);
                 _db.SaveChanges();

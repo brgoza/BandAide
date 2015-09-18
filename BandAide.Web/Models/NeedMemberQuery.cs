@@ -35,7 +35,7 @@ namespace BandAide.Web.Models
 
         public List<ApplicationUser> ExecuteQuery(ApplicationDbContext context)
         {
-            var matches = context.NeedBandQueriesDbSet.Where(x => x.Instrument.Id == Instrument.Id && x.Active==true).ToList();
+            var matches = context.NeedBandQueriesDbSet.Where(x => x.Instrument.Id == Instrument.Id && x.Active && x.User != null).ToList();
             List<ApplicationUser> results = new List<ApplicationUser>();
             matches.ForEach(x => results.Add(x.User));
             return results;

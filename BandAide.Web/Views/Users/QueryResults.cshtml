@@ -17,10 +17,19 @@
     <hr />
     @foreach (var item in Model)
     {
-
+        if (item == null)
+         {
+             continue;
+         }
         <div class="row">
-            <div class="col-xs-4">
-                @Html.ActionLink(item.Name, "BandDashboard", "Home", new { bandId = item.Id }, null) <br />
+            <div class = "col-xs-4" >
+                @{
+                   
+                        @Html.ActionLink(item.Name, "BandDashboard", "Home", new { bandId = item.Id }, null) <br />
+                   
+
+                }
+                
             </div>
 
             <div class="col-xs-8">

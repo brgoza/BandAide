@@ -23,10 +23,10 @@ else
             @foreach (var u in Model.BandMembers)
             {
                 <div class="row">
-                    <div class="col-xs-4">
+                    <div class="col-xs-6">
                         @Html.ActionLink(u.FullName, "Details", "Users", new { userId = u.Id }, null)
                     </div>
-                    <div class="col-xs-8">
+                    <div class="col-xs-6">
                         @foreach (var s in u.InstrumentSkills)
                         {
                             <div class="text-muted">@s.Instrument.Name</div>

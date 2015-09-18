@@ -112,11 +112,11 @@ namespace BandAide.Web.Controllers.AuthControllers
         }
 
         // POST: /Account/LogOff
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+      
+       
         public ActionResult LogOff()
         {
-            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            AuthenticationManager.SignOut();
             return RedirectToAction("Index", "Home");
         }
 

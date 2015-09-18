@@ -4,64 +4,66 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    @Html.HiddenFor(model => model.UserId);
+    @Html.HiddenFor(model => model.UserId)
 
     <div class="form-horizontal">
+        @{
+            var instrumentsPlayed = Model.InstrumentSkills.Select(x => x.Instrument).ToList();
+            var instrumentsNotPlayed = Model.AllInstruments.Where(x => instrumentsPlayed.Contains(x) == false);
+            int colCount = 6;
+           
+        }
+
         @if (Model.InstrumentSkills.Count == 0)
         {
-            <h4>You haven't told us about your musical skills.</h4>
-        }
-        <div class="container">
             <div class="row">
-                <div class="col-xs-6">
-                    <h4>Skills you've told us about</h4>
-                </div>
-                <div class="col-xs-6">
-                    @foreach (var skill in Model.InstrumentSkills)
-                    {
-                        <div class="row">
-                            <div class="col-xs-12"
-                                 style="vertical-align: baseline">
-                                <h5>@skill.Instrument.Name (@skill.Proficiency)</h5>
-                            </div>
-                        </div>
+                <h4>You haven't told us about your musical skills.</h4>
+            </div>
+        }
+        <div class="row">
+            <div class="col-xs-6">
+                <h4>Skills you've told us about</h4>
+            </div>
+            <div class="col-xs-6">
+                <h4>Add instrument skill.</h4>
+            </div>
+        </div>
 
-                    }
-                </div>
-
-                </div>
-                    <hr />
-
-
-                    @foreach (var instrument in Model.InstrumentsSelectList)
-                    {<div class="row">
-                @*//public ActionResult QueryByInstrument(Guid bandId, Guid selectedInstrumentId)*@
-                <div class="col-xs-3">
-                    <a href="@Url.Action("AddSkill", new {selectedInstrumentId = instrument.Value, Proficiency = Model.SelectedProficiency})">
-                        <img id=@instrument.Value
-                             src=@("/content/" + instrument.Text + "_icon.png")
+        <div class="row">
+            <div class="col-xs-6">
+                
+                @foreach (var inst in instrumentsPlayed)
+                {
+                    <div class="col-xs-3">
+                        <img id=@inst.Id
+                             src=@("/content/" + inst.Name + "_icon.png")
                              width="100px" />
-                    </a> 
-                </div>
-                <div class="col-xs-9">
-                    <h4>@Html.EnumDropDownListFor(model => model.SelectedProficiency)</h4>
+                    </div>
+                }
+            </div>
+
+
+            <div class="col-xs-6">
+                <div class="row">
+                    @foreach (var i in instrumentsNotPlayed)
+                    {
+                        <div class="col-xs-3">
+                            <a href="@Url.Action("AddSkill", new {selectedInstrumentId = i.Id, Proficiency = Proficiency.Intermediate})">
+                                <img id=@i.Id
+                                     src=@("/content/" + i.Name + "_icon.png")
+                                     width="100px" />
+                            </a>
+                        </div>
+                    }
                 </div>
             </div>
-                    }
+        </div>
+
+        @Html.ActionLink("Back to Profile", "UserProfile", "Users", new { Id = Model.UserId }, null)
+    </div>
+            }
 
 
-
-                        <div class="form-group">
-                            <div class="col-xs-3">
-                                <input type="submit" value="Create" class="btn btn-default" />
-                            </div>
-                            <div class="col-xs-9">
-                                @Html.ActionLink("Back to Profile", "UserProfile", "Users", new { Id = Model.UserId }, null)
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                    }
-                    @section Scripts {
-                        @Scripts.Render("~/bundles/jqueryval")
-                    }
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

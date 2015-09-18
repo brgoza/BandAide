@@ -8,51 +8,53 @@
 
 @if (@Model.MemberOfBands.Count == 0)
 {
-    <h4>
+    <h3>
         You're not currently in a band. Would you like to
         @Html.ActionLink("create one", "Create", "Bands")
         or @Html.ActionLink("look for one to join?", "QueryForBand", "Users", new { userId = Model.UserId }, null)
-    </h4>
+    </h3>
 }
 else
 {<div class="row">
-        <div class="col-xs-12">
-            @Html.ActionLink("Create a new band.", "Create", "Bands")<br />
-            @Html.ActionLink("Search for a new band.", "QueryForBand", "Users", new { userId = Model.UserId }, null)
+        <div class="col-xs-5">
+            <p>@Html.ActionLink("Create a new band.", "Create", "Bands", null, new { style = "font-weight: bolder;  background-color: rgba(0,0,0,.1)" })</p>
+        </div>
+        <div class="col-xs-7">
+            <p> @Html.ActionLink("Search for a new band.", "QueryForBand", "Users", new { userId = Model.UserId }, new { style = "font-weight: bolder;  background-color: rgba(0,0,0,.1)" })</p>
         </div>
     </div>
+
 }
 
 
 <div class="container">
     @if (Model.MemberOfBands.Count > 0)
     {
-
-
-        <div class="row">
-            <div class="col-xs-4"
-                 style="font-size: 1.5em;">Band</div>
-            <div class="col-xs-8"
-                 style="font-size: 1.5em;">Members</div>
+        <div class = "row" >
+            
+            <div class = " col-xs-5"
+                style = "font-size: 1.5em; font-weight: bolder;" >Band</div>
+            <div class = "col-xs-7"
+                style = "font-size: 1.5em; font-weight: bolder;" >Members</div>
         </div>
 
         foreach (var b in Model.MemberOfBands)
         {
-            <div class="row">
-                <div class="col-xs-4"
-                     style="vertical-align: baseline">
-                    <div class="text-primary">@Html.ActionLink(b.Name, "BandDashboard", "Home", new { bandId = b.Id }, htmlAttributes: new { style = "font-size:1.5em;" })</div>
+            <div class = "row" >
+                <div class = "col-xs-5"
+                    style = "vertical-align: baseline" >
+                    <div class = "text-primary" >@Html.ActionLink(b.Name, "BandDashboard", "Home", new {bandId = b.Id}, htmlAttributes: new {style = "font-size:1.5em;"})</div>
                 </div>
-                <div class="col-xs-8">
+                <div class = "col-xs-7" >
                     @foreach (var u in b.Members)
                     {
-                        @Html.ActionLink(u.FullName, "Details", "Users", new { userId = u.Id }, new { style = "font-family:cursive;font-size:1em" })
-                        <br />
+                        @Html.ActionLink(u.FullName, "Details", "Users", new {userId = u.Id}, new {style = "font-family:cursive;font-size:1em"})
+                        <br/>
                     }
                 </div>
-            </div>
-            <hr />
-        }}
+            </div> 
+        }
+    }
     @if (Model.MatchingQueries.Count > 0)
     {
         <div class="row">
@@ -62,14 +64,20 @@ else
             <div class="col-xs-9">
                 @foreach (var q in Model.MatchingQueries)
                 {
-                    <div class="row">
-                       @Html.ActionLink(q.Band.Name,"BandDashboard",new {bandId = q.Band.Id} ) is looking for a @q.Instrument.Name player
-                    </div>
+                    try
+                    {
+                        <div class="row">
+                            @Html.ActionLink(q.Band.Name, "BandDashboard", new { bandId = q.Band.Id }) is looking for a @q.Instrument.Name player
+                        </div>
+
+                    }
+                    catch (Exception)
+                    {
+
+                    }
                 }
             </div>
         </div>
     }
 
 </div>
-
-

@@ -34,10 +34,9 @@ namespace BandAide.Web.Models
 
         public List<Band> ExecuteQuery(ApplicationDbContext context)
         {
-            var matches = context.NeedMemberQueriesDbSet.Where(x => x.Instrument.Id == Instrument.Id).ToList();
-            List<Band> results = new List<Band>();
-            matches.ForEach(x => results.Add(x.Band));
-            return results;
+            var results = context.NeedMemberQueriesDbSet.Where(x => x.Instrument.Id == Instrument.Id).ToList();
+         
+            return results.Select(x=>x.Band).ToList();
         }
 
     }

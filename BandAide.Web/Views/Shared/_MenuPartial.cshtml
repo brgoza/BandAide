@@ -1,59 +1,36 @@
 ﻿@using Microsoft.AspNet.Identity
-<div class="container-fluid"
-     style="margin: 0 auto; padding: 0px;">
-    <div class="row"
-         style="text-align: center; margin: 0 auto; background-image: url(../../Content/keys.png); background-size: contain; padding: 0px;">
-
+<div class="container"
+     style="margin: 0 auto; padding: 0px; text-align: center;">
+    <div class = "row" style="height:100%; background-image: url(../../Content/keys.png); background-size: contain; text-align: center;  margin: 0px">
+        
         @if (Request.IsAuthenticated)
         {
-            using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-left" }))
-            {
-                @Html.AntiForgeryToken()
-                <ul class="nav navbar-nav col-lg-offset-1 col-sm-12">
-                    <li style="text-align: center">@Html.ActionLink("My Dashboard", "UserDashboard", "Home", null, htmlAttributes: new { @class = ".nav" })</li>
-                    <li class="dropdown" role="presentation">
-                    <li>
-                        <a aria-expanded="false"
-                           aria-haspopup="true"
-                           class="dropdown-toggle"
-                           data-toggle="dropdown"
-                           href="#"
-                           role="button">
-                            @User.Identity.GetUserName() <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Edit Profile", "UserProfile", "Users", new { Id = User.Identity.GetUserId() }, new { @class = "dropdown-items" })</li>
-                            <li>
-                                <a class="dropdown-items"
-                                   href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
-                            </li>
-                        </ul>
-                    @*<li class="dropdown" role="presentation">
-                    <li>
-                        <a aria-expanded="false"
-                           aria-haspopup="true"
-                           class="dropdown-toggle"
-                           data-toggle="dropdown"
-                           href="#"
-                           role="button">My Bands<span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("", "UserProfile", "Users", new { Id = User.Identity.GetUserId() }, new { @class = "dropdown-items" })</li>
-                            <li>
-                                <a class="dropdown-items" href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
-                            </li>
-                        </ul>*@
-                    </li>
-                </ul>
-            }
-        }
-        else
-        {
-            <ul class="nav navbar-nav">
-                @*<li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-                    <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>*@
+         
+            <ul class="nav navbar-nav navbar">
+                <li style="text-align: center">@Html.ActionLink("My Dashboard", "UserDashboard", "Home", null, new { @class = ".nav",style = "height: 30px;"})</li>
+                <li class="dropdown"
+                    role="presentation">
+                <li>
+                    <a aria-expanded="false"
+                       aria-haspopup="true"
+                       class="dropdown-toggle"
+                       data-toggle="dropdown"
+                       href="#"
+                       role="button">
+                        @User.Identity.GetUserName() <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Edit Profile", "UserProfile", "Users", new { Id = User.Identity.GetUserId() }, new { @class = "dropdown-items" })</li>
+                        <li>
+                            @Html.ActionLink("Log off", "LogOff", "Account",null, new { @class = "dropdown-items" })
+
+
+                        </li>
+                    </ul>
+                </li>
             </ul>
         }
+
     </div>
 
 </div>
